@@ -36,7 +36,7 @@ function MealItem(props) {
   return (
     <li className="list-group-item">
       <div className="d-flex justify-content-between">
-        <span className="font-weight-bold">
+        <span className="font-weight-bold text-capitalize">
           {name}
         </span>
         <span>
@@ -46,8 +46,13 @@ function MealItem(props) {
       <hr />
       {domDetails}
       <hr />
-      <div>
-        {calories} Calories
+      <div className="d-flex justify-content-between">
+        <span className="text-capitalize">
+          Calories
+        </span>
+        <span>
+          {calories}
+        </span>
       </div>
     </li>
   );
