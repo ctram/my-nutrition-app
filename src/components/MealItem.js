@@ -27,7 +27,7 @@ function MealItem(props) {
           {attr}
         </span>
         <span>
-          {nutrition[attr]}
+          {nutrition[attr]} g
         </span>
       </div>
     );
@@ -46,13 +46,8 @@ function MealItem(props) {
       <hr />
       {domDetails}
       <hr />
-      <div className="d-flex justify-content-between">
-        <span>
-          Calories
-        </span>
-        <span>
-          {calories}
-        </span>
+      <div>
+        {calories} Calories
       </div>
     </li>
   );
