@@ -7,7 +7,9 @@ import PageAddFoodToLibrary from "../pages/PageAddFoodToLibrary";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-import '../styles/App.css';
+import foodTemplatesData from "../mock-data/food-templates.json";
+
+import "../styles/App.css";
 
 class App extends React.Component {
   render() {
