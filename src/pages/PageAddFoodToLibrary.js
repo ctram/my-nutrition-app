@@ -1,8 +1,24 @@
 import React from 'react';
 
+import FormAddFoodToLibrary from '../components/FormAddFoodToLibrary';
+import { Link } from "react-router-dom";
+
 class PageAddFoodToLibrary extends React.Component {
   render() {
-    return 'add food to library'
+    const { onSubmitNewFood } = this.props;
+
+    return (
+      <div>
+
+        <Link to="/" className="btn btn-secondary">
+          Back To Diary
+        </Link>
+
+        <div className="my-5">
+          <FormAddFoodToLibrary onSubmit={onSubmitNewFood} />
+        </div>
+      </div>
+    );
   }
 }
 
