@@ -14,7 +14,8 @@ class MealStats extends React.Component {
   }
 
   onClickAddFood(e) {
-    // open modal to add food.
+    const { name } = this.props;
+    this.props.onClickAddFood(name);
   }
 
   render() {
@@ -24,12 +25,12 @@ class MealStats extends React.Component {
     let domTotalMealStats = null;
 
     if (items) {
-      domItems = items.map((item) => {
-        return <MealItem key={item.id} item={item} />;
+      domItems = items.map((item, idx) => {
+        return <MealItem key={item.id || idx} item={item} />;
       });
 
       domItems = (
-        <ul class="list-group list-group-flush">
+        <ul className="list-group list-group-flush">
           {domItems}
         </ul>
       );
@@ -69,8 +70,8 @@ class MealStats extends React.Component {
           {domTotalMealStats}
         </div>
         {domItems}
-        <div class="card-footer text-muted">
-          <button data-toggle="modal" data-target="#exampleModal" className="btn btn-primary" type="button">
+        <div className="card-footer text-muted">
+          <button onClick={this.onClickAddFood} className="btn btn-primary" type="button">
             Add Food
           </button>
         </div>
