@@ -146,6 +146,15 @@ class App extends React.Component {
       case 'modalAddFoodToMeal':
         domModal = defaultModal
         break;
+      case 'modalAddFoodToLibrary':
+        domModal = (
+          <ModalAddFoodToLibrary
+            onClickClose={this.closeModal}
+            onClickBackToMeal={this.backToMeal}
+            onClickAddFoodToLibray={this.addFoodToLibrary}
+          />
+        );
+        break;
       default:
         domModal = defaultModal;
     }
