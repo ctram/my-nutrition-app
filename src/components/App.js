@@ -82,7 +82,7 @@ class App extends React.Component {
     this.showModal(null);
   }
 
-  addFoodToMeal(food, mealType, callback) {
+  addFoodToMeal(food, mealType) {
     const { days, date } = this.state;
 
     let day = days[date];
