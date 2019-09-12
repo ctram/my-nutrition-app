@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import NavBar from './NavBar';
+import NavBar from "./NavBar";
 
-import PageDay from '../pages/PageDay';
-import PageAddFoodToLibrary from '../pages/PageAddFoodToLibrary';
+import PageDay from "../pages/PageDay";
+import PageAddFoodToLibrary from "../pages/PageAddFoodToLibrary";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
