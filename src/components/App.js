@@ -34,16 +34,28 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const { date, foods: { breakfast, lunch, dinner, snacks } } = mockData;
-
-
-
+    // tap into jQuery to activate Bootstrap modal;
     window.$(`#${this.idModal}`)
       .modal({
         backdrop: 'static',
         show: false,
         focus: false
       });
+
+    // Here we would normally call the server for data to render onto the UI,
+    // but instead, let's just render the mock data.
+    const { date } = this.state;
+
+    let foods;
+
+    if (date) {
+      foods = mockData[date].foods
+    } else {
+      let firstDate = Object.keys(mockData)[0];
+      foods = mockData[firstDate].foods;
+    }
+
+    const { breakfast, lunch, dinner, snacks } = foods;
 
     this.setState({
       date, breakfast, lunch, dinner, snacks
@@ -57,6 +69,10 @@ class App extends React.Component {
 
   closeModal() {
     this.showModal(null);
+  }
+
+  addFoodToMeal(food, mealType) {
+    // const { breakfast, lunch}
   }
 
   render() {
@@ -77,7 +93,6 @@ class App extends React.Component {
       default:
         domModal = defaultModal;
     }
-
 
     return (
       <div className="App">
