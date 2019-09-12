@@ -15,7 +15,6 @@ class Modal extends React.Component {
     const { buttons, title, children, id, onClickClose } = this.props;
 
 
-
     let domButtons = null;
 
     if (buttons) {
