@@ -1,3 +1,7 @@
 .nav-date .chevron {
   cursor: pointer;
 }
+
+.nav-date {
+  font-size: 1.8em;
+}

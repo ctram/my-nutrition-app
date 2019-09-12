@@ -1,8 +1,8 @@
 import React from 'react';
+import moment from 'moment';
 
 import '../styles/NavDate.css';
 
-import moment from 'moment';
 import { DATE_FORMAT } from '../constants/base';
 
 function NavDate (props) {
