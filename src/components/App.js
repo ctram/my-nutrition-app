@@ -1,20 +1,23 @@
 import React from 'react';
-
-import '../styles/App.css';
+import moment from 'moment';
 
 import NavBar from './NavBar';
+import NavDate from './NavDate';
+
 import MealStats from './MealStats';
 import ModalAddFoodToMeal from './ModalAddFoodToMeal';
 
+import '../styles/App.css';
 import mockData from '../mock-data/days.json';
 
 import { newDayTemplate } from '../helpers/days';
+import { DATE_FORMAT } from '../constants/base';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    const dateToday = new Date().toJSON().split('T')[0];
+    const dateToday = moment().format(DATE_FORMAT);
     const days = {};
     days[dateToday] = newDayTemplate();
 
@@ -35,6 +38,7 @@ class App extends React.Component {
     this.closeModal = this.closeModal.bind(this);
     this.showModalAddFoodToMeal = this.showModalAddFoodToMeal.bind(this);
     this.addFoodToMeal = this.addFoodToMeal.bind(this);
+    this.changeDate = this.changeDate.bind(this);
   }
 
   componentDidMount() {
@@ -76,8 +80,6 @@ class App extends React.Component {
       day = newDayTemplate();
     }
 
-
-
     day.foods[mealType].items.push(food);
     days[date] = day;
 
@@ -87,6 +89,27 @@ class App extends React.Component {
         return resolve();
       })
     });
+  }
+
+  changeDate(direction) {
+    const { date, days } = this.state;
+    const m = moment(date);
+
+    if (direction === 'prev') {
+      m.subtract(1, 'day');
+    } else if (direction === 'next') {
+      m.add(1, 'day');
+    } else {
+      console.error(`'${direction}' is not an expected direction; was expecting 'prev' or 'next'`);
+    }
+
+    const nextDate = m.format('YYYY-MM-DD');
+
+    if (!days[nextDate]) {
+      days[nextDate] = newDayTemplate();
+    }
+
+    this.setState({ date: nextDate, days });
   }
 
   render() {
@@ -115,9 +138,13 @@ class App extends React.Component {
 
     return (
       <div className="App">
-        <NavBar />
         {domModal}
+        <NavBar />
         <div className="main-content p-3">
+          <NavDate
+            date={date}
+            onChangeDate={this.changeDate}
+          />
           <div className="py-3">
             <MealStats
               name="breakfast"
