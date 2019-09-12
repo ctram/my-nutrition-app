@@ -14,8 +14,7 @@ class MealStats extends React.Component {
   }
 
   onClickAddFood(e) {
-    const { name } = this.props;
-    this.props.onClickAddFood(name);
+    this.props.onClickAddFood('modalAddFoodToMeal');
   }
 
   render() {
