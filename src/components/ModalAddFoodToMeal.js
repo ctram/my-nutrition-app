@@ -16,6 +16,7 @@ class ModalAddFoodToMeal extends React.Component {
 
     this.onChangeSelect = this.onChangeSelect.bind(this);
     this.onChangeNumberServings = this.onChangeNumberServings.bind(this);
+    this.onClickAddFoodToMeal = this.onClickAddFoodToMeal.bind(this);
   }
 
   componentDidMount() {
@@ -30,6 +31,10 @@ class ModalAddFoodToMeal extends React.Component {
 
   onChangeNumberServings(e) {
     this.setState({ numberServings: e.target.value });
+  }
+
+  onClickAddFoodToMeal() {
+
   }
 
   render() {
@@ -50,15 +55,20 @@ class ModalAddFoodToMeal extends React.Component {
       domOptions = domOptions.concat(_foodTemplates);
     }
 
+    const formId = 'form-add-food-to-meal';
+
     const buttons = [
       {
         label: 'Add Food To Meal',
         cssClass: 'btn-primary',
-        disabled: !selectedFoodTemplateId
+        disabled: !selectedFoodTemplateId,
+        form: formId,
+        onClick: this.onClickAddFoodToMeal
       },
       {
         label: 'Add New Food To Library',
-        cssClass: 'btn-secondary'
+        cssClass: 'btn-secondary',
+        form: formId
       }
     ];
 
@@ -69,7 +79,7 @@ class ModalAddFoodToMeal extends React.Component {
         onClickClose={onClickClose}
         buttons={buttons}
       >
-        <form>
+        <form id={formId}>
           <div className="form-group">
             <label htmlFor="select-food">Name</label>
             <select onChange={this.onChangeSelect} value={selectedFoodTemplateId} id="select-food" className="form-control text-capitalize">
