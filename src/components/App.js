@@ -93,10 +93,6 @@ class App extends React.Component {
 
     let day = days[date];
 
-    if (!day) {
-      day = newDayTemplate();
-    }
-
     day.foods[mealType].items.push(food);
     days[date] = day;
 
