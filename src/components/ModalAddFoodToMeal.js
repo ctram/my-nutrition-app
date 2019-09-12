@@ -9,12 +9,11 @@ class ModalAddFoodToMeal extends React.Component {
     super(props);
 
     this.state = {
-      selectedFoodTemplateId: null,
+      selectedFoodTemplateId: '',
       foodTemplates: []
     };
 
     this.onChangeSelect = this.onChangeSelect.bind(this);
-    this.onClickClose = this.onClickClose.bind(this);
   }
 
   componentDidMount() {
@@ -27,22 +26,20 @@ class ModalAddFoodToMeal extends React.Component {
     this.setState({ selectedFoodTemplateId: e.target.value || null });
   }
 
-  onClickClose() {
-  }
-
   render() {
 
     const { selectedFoodTemplateId, foodTemplates } = this.state;
+    const { onClickClose } = this.props;
 
     let domOptions = [
-      <option value={null} label="Select A Food" />
+      <option key={-1} value={''} label="Select A Food" />
     ];
 
     if (foodTemplates && foodTemplates.length > 0) {
-      const _foodTemplates = foodTemplates.map(foodTemplate => {
+      const _foodTemplates = foodTemplates.map((foodTemplate, idx) => {
         const { name, servingSize, servingSizeUnit, id } = foodTemplate;
 
-        return <option value={id} label={`${name} (${servingSize} ${servingSizeUnit})`} />
+        return <option key={idx} value={id} label={`${name} (${servingSize} ${servingSizeUnit})`} />
       });
 
       domOptions = domOptions.concat(_foodTemplates);
@@ -64,7 +61,7 @@ class ModalAddFoodToMeal extends React.Component {
       <Modal
         title="Add Food To Meal"
         id="modal-add-food-to-meal"
-        onClickClose={this.onClickClose}
+        onClickClose={onClickClose}
         buttons={buttons}
       >
         <form>
