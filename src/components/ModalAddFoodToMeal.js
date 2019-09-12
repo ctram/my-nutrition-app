@@ -10,10 +10,12 @@ class ModalAddFoodToMeal extends React.Component {
 
     this.state = {
       selectedFoodTemplateId: '',
-      foodTemplates: []
+      foodTemplates: [],
+      numberServings: 1
     };
 
     this.onChangeSelect = this.onChangeSelect.bind(this);
+    this.onChangeNumberServings = this.onChangeNumberServings.bind(this);
   }
 
   componentDidMount() {
@@ -26,9 +28,12 @@ class ModalAddFoodToMeal extends React.Component {
     this.setState({ selectedFoodTemplateId: e.target.value || null });
   }
 
-  render() {
+  onChangeNumberServings(e) {
+    this.setState({ numberServings: e.target.value });
+  }
 
-    const { selectedFoodTemplateId, foodTemplates } = this.state;
+  render() {
+    const { selectedFoodTemplateId, foodTemplates, numberServings } = this.state;
     const { onClickClose } = this.props;
 
     let domOptions = [
@@ -76,7 +81,7 @@ class ModalAddFoodToMeal extends React.Component {
             selectedFoodTemplateId &&
             <div className="form-group">
               <label htmlFor="input-number-servings">Number of Servings</label>
-              <input id="input-number-servings" type="number" className="form-control" />
+              <input onChange={this.onChangeNumberServings} value={numberServings} min="1" id="input-number-servings" type="number" className="form-control" />
             </div>
           }
         </form>
