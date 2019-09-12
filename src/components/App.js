@@ -67,7 +67,7 @@ class App extends React.Component {
     this.showModal(null);
   }
 
-  addFoodToMeal(food, mealType) {
+  addFoodToMeal(food, mealType, callback) {
     const { days, date } = this.state;
 
     let day = days[date];
@@ -76,12 +76,17 @@ class App extends React.Component {
       day = newDayTemplate();
     }
 
+
+
     day.foods[mealType].items.push(food);
     days[date] = day;
 
-    this.setState({ days }, () => {
-      this.showModal(null);
-    })
+    return new Promise(resolve => {
+      this.setState({ days }, () => {
+        this.showModal(null);
+        return resolve();
+      })
+    });
   }
 
   render() {
@@ -120,10 +125,16 @@ class App extends React.Component {
               onClickAddFood={this.showModalAddFoodToMeal} />
           </div>
           <div className="py-3">
-            <MealStats name="lunch" items={lunch.items} />
+            <MealStats
+              name="lunch"
+              items={lunch.items}
+              onClickAddFood={this.showModalAddFoodToMeal} />
           </div>
           <div className="py-3">
-            <MealStats name="dinner" items={dinner.items} />
+            <MealStats
+              name="dinner"
+              items={dinner.items}
+              onClickAddFood={this.showModalAddFoodToMeal} />
           </div>
         </div>
       </div>

@@ -45,7 +45,10 @@ class ModalAddFoodToMeal extends React.Component {
 
     const foodItem = { name, servingSize, servingSizeUnit, nutrition, numberServings };
 
-    onClickAddFoodToMeal(foodItem, mealType);
+    onClickAddFoodToMeal(foodItem, mealType)
+      .then(() => {
+        this.setState({ selectedFoodTemplateId: '', numberServings: 1 });
+      });
   }
 
   render() {
