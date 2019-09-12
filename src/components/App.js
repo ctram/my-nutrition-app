@@ -149,19 +149,22 @@ class App extends React.Component {
             <MealStats
               name="breakfast"
               items={breakfast.items}
-              onClickAddFood={this.showModalAddFoodToMeal} />
+              onClickAddFood={this.showModalAddFoodToMeal}
+            />
           </div>
           <div className="py-3">
             <MealStats
               name="lunch"
               items={lunch.items}
-              onClickAddFood={this.showModalAddFoodToMeal} />
+              onClickAddFood={this.showModalAddFoodToMeal}
+            />
           </div>
           <div className="py-3">
             <MealStats
               name="dinner"
               items={dinner.items}
-              onClickAddFood={this.showModalAddFoodToMeal} />
+              onClickAddFood={this.showModalAddFoodToMeal}
+            />
           </div>
         </div>
       </div>
