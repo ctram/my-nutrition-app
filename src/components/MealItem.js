@@ -9,11 +9,11 @@ const SERVING_SIZE_UNIT_LABELS = {
 };
 
 function MealItem(props) {
-  const { name, servingSizeUnit, servingSize, quantityOfServings, nutrition } = props.item;
+  const { name, servingSizeUnit, servingSize, numberServings, nutrition } = props.item;
   const { calories } = nutrition;
 
   const servingSizeUnitLabel = SERVING_SIZE_UNIT_LABELS[servingSizeUnit];
-  const totalPortion = `${servingSize * quantityOfServings} ${servingSizeUnitLabel}`
+  const totalPortion = `${servingSize * numberServings} ${servingSizeUnitLabel}`
 
   const details = { ...nutrition };
   delete details['calories']

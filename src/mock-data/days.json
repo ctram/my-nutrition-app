@@ -1,5 +1,5 @@
 {
-  "2019-09-01": {
+  "2019-09-12": {
     "foods": {
       "breakfast": {
         "items": [
@@ -7,7 +7,7 @@
             "name": "fried chicken",
             "servingSize": 3,
             "servingSizeUnit": "ounce",
-            "quantityOfServings": 2,
+            "numberServings": 2,
             "nutrition": {
               "fat": 30,
               "protein": 34,
@@ -19,7 +19,7 @@
             "name": "garlic bread",
             "servingSize": 4,
             "servingSizeUnit": "ounce",
-            "quantityOfServings": 1,
+            "numberServings": 1,
             "nutrition": {
               "fat": 300,
               "protein": 343,
