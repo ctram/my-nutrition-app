@@ -5,6 +5,7 @@ import '../styles/App.css';
 import NavBar from './NavBar';
 import MealStats from './MealStats';
 import ModalAddFood from './ModalAddFood';
+import ModalAddFoodToMeal from './ModalAddFoodToMeal';
 
 import mockData from '../mock-data/days.json';
 
@@ -24,7 +25,7 @@ class App extends React.Component {
       mealTypeToAddItemTo: null
     };
 
-    this.idModalAddFood = 'modal-add-food';
+    this.idModalAddFood = 'modal-add-food-to-meal';
     this.idModalAddExercise = 'modal-add-exercise';
     this.toggleModal = this.toggleModal.bind(this);
   }
@@ -74,7 +75,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <NavBar />
-        <ModalAddFood
+        <ModalAddFoodToMeal
           id={this.idModalAddFood}
           date={date}
           mealType={mealTypeToAddItemTo}
