@@ -4,24 +4,28 @@ import moment from 'moment';
 import NavDate from '../components/NavDate';
 import MealStats from '../components/MealStats';
 import ModalAddFoodToMeal from '../components/ModalAddFoodToMeal';
-import ModalAddFoodToLibrary from '../components/ModalAddFoodToLibrary';
 
 import mockData from '../mock-data/days.json';
 
 import { newDayTemplate } from '../helpers/days';
 import { DATE_FORMAT } from '../constants/base';
 
+import { withRouter } from 'react-router';
+
 class PageDay extends React.Component {
   constructor(props) {
     super(props);
+
+    const { foodTemplates } = props;
 
     const dateToday = moment().format(DATE_FORMAT);
     const days = {};
     days[dateToday] = newDayTemplate();
 
     this.state = {
-      date: dateToday,
+      foodTemplates,
       days,
+      date: dateToday,
       modalAddFoodVisible: false,
       modalAddExerciseVisible: false,
       mealTypeToAddItemTo: null,
@@ -35,7 +39,7 @@ class PageDay extends React.Component {
     this.showModal = this.showModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.showModalAddFoodToMeal = this.showModalAddFoodToMeal.bind(this);
-    this.showModalAddFoodToLibrary = this.showModalAddFoodToLibrary.bind(this);
+    this.goToPageAddFoodToLibrary = this.goToPageAddFoodToLibrary.bind(this);
     this.addFoodToMeal = this.addFoodToMeal.bind(this);
     this.changeDate = this.changeDate.bind(this);
   }
@@ -52,6 +56,14 @@ class PageDay extends React.Component {
     const { days } = this.state;
 
     this.setState({ days: { ...days, ...mockData } });
+  }
+
+  componentDidUpdate(prevProps) {
+    const { foodTemplates } = this.props;
+
+    if (prevProps.foodTemplates !== foodTemplates) {
+      this.setState({ foodTemplates });
+    }
   }
 
   showModal(modalType) {
@@ -77,8 +89,9 @@ class PageDay extends React.Component {
     });
   }
 
-  showModalAddFoodToLibrary() {
-    this.showModal('modalAddFoodToLibrary');
+  goToPageAddFoodToLibrary() {
+    this.showModal(null);
+    this.props.history.push('add-food-to-library');
   }
 
   closeModal() {
@@ -123,7 +136,8 @@ class PageDay extends React.Component {
   }
 
   render() {
-    const { days, date, mealTypeToAddItemTo, modalToShow } = this.state;
+    const { days, date, mealTypeToAddItemTo, modalToShow, foodTemplates } = this.state;
+
 
     const day = days[date];
     const foods = day.foods;
@@ -134,7 +148,8 @@ class PageDay extends React.Component {
                             mealType={mealTypeToAddItemTo}
                             onClickClose={this.closeModal}
                             onClickAddFoodToMeal={this.addFoodToMeal}
-                            onClickAddFoodToLibrary={this.showModalAddFoodToLibrary}
+                            onClickAddFoodToLibrary={this.goToPageAddFoodToLibrary}
+                            foodTemplates={foodTemplates}
                           />;
 
     let domModal = null;
@@ -142,15 +157,6 @@ class PageDay extends React.Component {
     switch (modalToShow) {
       case 'modalAddFoodToMeal':
         domModal = defaultModal
-        break;
-      case 'modalAddFoodToLibrary':
-        domModal = (
-          <ModalAddFoodToLibrary
-            onClickClose={this.closeModal}
-            onClickBackToMeal={this.backToMeal}
-            onClickAddFoodToLibray={this.addFoodToLibrary}
-          />
-        );
         break;
       default:
         domModal = defaultModal;
@@ -189,4 +195,4 @@ class PageDay extends React.Component {
   }
 }
 
-export default PageDay;
+export default withRouter(PageDay);
