@@ -6,6 +6,7 @@ import NavDate from './NavDate';
 
 import MealStats from './MealStats';
 import ModalAddFoodToMeal from './ModalAddFoodToMeal';
+import ModalAddFoodToLibrary from './ModalAddFoodToLibrary';
 
 import '../styles/App.css';
 import mockData from '../mock-data/days.json';
@@ -37,6 +38,7 @@ class App extends React.Component {
     this.showModal = this.showModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.showModalAddFoodToMeal = this.showModalAddFoodToMeal.bind(this);
+    this.showModalAddFoodToLibrary = this.showModalAddFoodToLibrary.bind(this);
     this.addFoodToMeal = this.addFoodToMeal.bind(this);
     this.changeDate = this.changeDate.bind(this);
   }
@@ -76,6 +78,10 @@ class App extends React.Component {
     this.setState({ mealTypeToAddItemTo: mealType }, () => {
       this.showModal('modalAddFoodToMeal');
     });
+  }
+
+  showModalAddFoodToLibrary() {
+    this.showModal('modalAddFoodToLibrary');
   }
 
   closeModal() {
@@ -135,6 +141,7 @@ class App extends React.Component {
                             mealType={mealTypeToAddItemTo}
                             onClickClose={this.closeModal}
                             onClickAddFoodToMeal={this.addFoodToMeal}
+                            onClickAddFoodToLibrary={this.showModalAddFoodToLibrary}
                           />;
 
     let domModal = null;
