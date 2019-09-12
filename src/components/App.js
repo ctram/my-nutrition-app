@@ -56,7 +56,18 @@ class App extends React.Component {
   }
 
   showModal(modalType) {
+    if (modalType !== this.state.modalToShow) {
+      window.$(`#${this.idModal}`).modal('hide');
+    }
+
     this.setState({ modalToShow: modalType }, () => {
+      window.$(`#${this.idModal}`)
+        .modal({
+          backdrop: 'static',
+          show: false,
+          focus: false
+        });
+
       window.$(`#${this.idModal}`).modal(!!modalType ? 'show' : 'hide');
     })
   }
