@@ -2,15 +2,15 @@ import React from 'react';
 
 import Modal from './Modal';
 
-import foodTemplatesData from '../mock-data/food-templates.json';
-
 class ModalAddFoodToMeal extends React.Component {
   constructor(props) {
     super(props);
 
+    const { foodTemplates } = props;
+
     this.state = {
+      foodTemplates,
       selectedFoodTemplateId: '',
-      foodTemplates: [],
       numberServings: 1
     };
 
@@ -21,10 +21,12 @@ class ModalAddFoodToMeal extends React.Component {
     this.resetState = this.resetState.bind(this);
   }
 
-  componentDidMount() {
-    // in actual app, we'd probably call the server for a collection
-    // of food templates; here we just pull in mock data.
-    this.setState({ foodTemplates: foodTemplatesData.foods });
+  componentDidUpdate(prevProps) {
+    const { foodTemplates } = this.props;
+
+    if (prevProps.foodTemplates !== foodTemplates) {
+      this.setState({ foodTemplates });
+    }
   }
 
   onChangeSelect(e) {
@@ -43,9 +45,9 @@ class ModalAddFoodToMeal extends React.Component {
       return String(foodTemplate.id) === selectedFoodTemplateId;
     })
 
-    const { name, servingSize, servingSizeUnit, nutrition } = foodTemplate;
+    const { name, servingSize, servingUnit, nutrition } = foodTemplate;
 
-    const foodItem = { name, servingSize, servingSizeUnit, nutrition, numberServings };
+    const foodItem = { name, servingSize, servingUnit, nutrition, numberServings };
 
     onClickAddFoodToMeal(foodItem, mealType)
       .then(() => {
@@ -66,15 +68,16 @@ class ModalAddFoodToMeal extends React.Component {
     const { selectedFoodTemplateId, foodTemplates, numberServings } = this.state;
     const { onClickClose } = this.props;
 
+
     let domOptions = [
       <option key={-1} value={''} label="Select A Food" />
     ];
 
     if (foodTemplates && foodTemplates.length > 0) {
       const _foodTemplates = foodTemplates.map((foodTemplate, idx) => {
-        const { name, servingSize, servingSizeUnit, id } = foodTemplate;
+        const { name, servingSize, servingUnit, id } = foodTemplate;
 
-        return <option key={idx} value={id} label={`${name} (${servingSize} ${servingSizeUnit})`} />
+        return <option key={idx} value={id} label={`${name} (${servingSize} ${servingUnit})`} />
       });
 
       domOptions = domOptions.concat(_foodTemplates);
