@@ -29,8 +29,12 @@
           }
         ]
       },
-      "lunch": {},
-      "dinner": {},
+      "lunch": {
+        "items": []
+      },
+      "dinner": {
+        "items": []
+      },
       "snacks": []
     }
   }
