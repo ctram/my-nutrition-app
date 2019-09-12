@@ -4,7 +4,7 @@
       "id": 1,
       "name": "fried chicken",
       "servingSize": 3,
-      "servingSizeUnit": "ounce",
+      "servingUnit": "ounce",
       "nutrition": {
         "fat": 30,
         "protein": 34,
@@ -16,7 +16,7 @@
       "id": 2,
       "name": "garlic bread",
       "servingSize": 4,
-      "servingSizeUnit": "ounce",
+      "servingUnit": "ounce",
       "nutrition": {
         "fat": 300,
         "protein": 343,
