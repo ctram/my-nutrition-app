@@ -8,17 +8,19 @@ import ModalAddFoodToMeal from './ModalAddFoodToMeal';
 
 import mockData from '../mock-data/days.json';
 
+import { newDayTemplate } from '../helpers/days';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
 
+    const dateToday = new Date().toJSON().split('T')[0];
+    const days = {};
+    days[dateToday] = newDayTemplate();
+
     this.state = {
-      date: '',
-      breakfast: {},
-      lunch: {},
-      dinner: {},
-      snacks: [],
-      exercises: [],
+      date: dateToday,
+      days,
       modalAddFoodVisible: false,
       modalAddExerciseVisible: false,
       mealTypeToAddItemTo: null,
@@ -31,6 +33,8 @@ class App extends React.Component {
     this.idModalAddExercise = 'modal-add-exercise';
     this.showModal = this.showModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+    this.showModalAddFoodToMeal = this.showModalAddFoodToMeal.bind(this);
+    this.addFoodToMeal = this.addFoodToMeal.bind(this);
   }
 
   componentDidMount() {
@@ -42,29 +46,21 @@ class App extends React.Component {
         focus: false
       });
 
-    // Here we would normally call the server for data to render onto the UI,
-    // but instead, let's just render the mock data.
-    const { date } = this.state;
+    const { days } = this.state;
 
-    let foods;
-
-    if (date) {
-      foods = mockData[date].foods
-    } else {
-      let firstDate = Object.keys(mockData)[0];
-      foods = mockData[firstDate].foods;
-    }
-
-    const { breakfast, lunch, dinner, snacks } = foods;
-
-    this.setState({
-      date, breakfast, lunch, dinner, snacks
-    });
+    this.setState({ days: { ...days, ...mockData } });
   }
 
   showModal(modalType) {
-    window.$(`#${this.idModal}`).modal(!!modalType ? 'show' : 'hide');
-    this.setState({ modalToShow: modalType });
+    this.setState({ modalToShow: modalType }, () => {
+      window.$(`#${this.idModal}`).modal(!!modalType ? 'show' : 'hide');
+    })
+  }
+
+  showModalAddFoodToMeal(mealType) {
+    this.setState({ mealTypeToAddItemTo: mealType }, () => {
+      this.showModal('modalAddFoodToMeal');
+    });
   }
 
   closeModal() {
@@ -72,16 +68,34 @@ class App extends React.Component {
   }
 
   addFoodToMeal(food, mealType) {
-    // const { breakfast, lunch}
+    const { days, date } = this.state;
+
+    let day = days[date];
+
+    if (!day) {
+      day = newDayTemplate();
+    }
+
+    day.foods[mealType].items.push(food);
+    days[date] = day;
+
+    this.setState({ days }, () => {
+      this.showModal(null);
+    })
   }
 
   render() {
-    const { breakfast, lunch, dinner, snacks, date, mealTypeToAddItemTo, modalToShow } = this.state;
+    const { days, date, mealTypeToAddItemTo, modalToShow } = this.state;
+
+    const day = days[date];
+    const foods = day.foods;
+    const { breakfast, lunch, dinner, snacks } = foods;
 
     const defaultModal = <ModalAddFoodToMeal
                             date={date}
                             mealType={mealTypeToAddItemTo}
                             onClickClose={this.closeModal}
+                            onClickAddFoodToMeal={this.addFoodToMeal}
                           />;
 
     let domModal = null;
@@ -103,7 +117,7 @@ class App extends React.Component {
             <MealStats
               name="breakfast"
               items={breakfast.items}
-              onClickAddFood={this.showModal} />
+              onClickAddFood={this.showModalAddFoodToMeal} />
           </div>
           <div className="py-3">
             <MealStats name="lunch" items={lunch.items} />
