@@ -1,7 +1,6 @@
 {
-  "foods": [
-    {
-      "id": 1,
+  "foods": {
+    1: {
       "name": "fried chicken",
       "servingSize": 3,
       "servingSizeUnit": "ounce",
@@ -12,8 +11,7 @@
         "calories": 12345
       }
     },
-    {
-      "id": 2,
+    2: {
       "name": "garlic bread",
       "servingSize": 4,
       "servingSizeUnit": "ounce",
@@ -24,5 +22,5 @@
         "calories": 1233
       }
     }
-  ]
+  }
 }
