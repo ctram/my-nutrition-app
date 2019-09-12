@@ -17,6 +17,8 @@ class ModalAddFoodToMeal extends React.Component {
     this.onChangeSelect = this.onChangeSelect.bind(this);
     this.onChangeNumberServings = this.onChangeNumberServings.bind(this);
     this.onClickAddFoodToMeal = this.onClickAddFoodToMeal.bind(this);
+    this.onClickAddFoodToLibrary = this.onClickAddFoodToLibrary.bind(this);
+    this.resetState = this.resetState.bind(this);
   }
 
   componentDidMount() {
@@ -47,8 +49,17 @@ class ModalAddFoodToMeal extends React.Component {
 
     onClickAddFoodToMeal(foodItem, mealType)
       .then(() => {
-        this.setState({ selectedFoodTemplateId: '', numberServings: 1 });
+        this.resetState();
       });
+  }
+
+  onClickAddFoodToLibrary() {
+    this.resetState();
+    this.props.onClickAddFoodToLibrary();
+  }
+
+  resetState() {
+    this.setState({ selectedFoodTemplateId: '', numberServings: 1 });
   }
 
   render() {
@@ -82,7 +93,8 @@ class ModalAddFoodToMeal extends React.Component {
       {
         label: 'Add New Food To Library',
         cssClass: 'btn-secondary',
-        form: formId
+        form: formId,
+        onClick: this.onClickAddFoodToLibrary
       }
     ];
 
