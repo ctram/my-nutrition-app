@@ -10,7 +10,7 @@ const SERVING_SIZE_UNIT_LABELS = {
 
 function MealItem(props) {
   const { name, servingSizeUnit, servingSize, quantityOfServings, nutrition } = props.item;
-  const { fat, protein, carbs, calories } = nutrition;
+  const { calories } = nutrition;
 
   const servingSizeUnitLabel = SERVING_SIZE_UNIT_LABELS[servingSizeUnit];
   const totalPortion = `${servingSize * quantityOfServings} ${servingSizeUnitLabel}`
@@ -21,13 +21,15 @@ function MealItem(props) {
   let domDetails = [];
 
   for (const attr in details) {
+    const value = nutrition[attr];
+
     domDetails.push(
-      <div className="d-flex justify-content-between">
+      <div key={`${attr}-${value}`} className="d-flex justify-content-between">
         <span className="text-capitalize">
           {attr}
         </span>
         <span>
-          {nutrition[attr]} g
+          {value} g
         </span>
       </div>
     );
