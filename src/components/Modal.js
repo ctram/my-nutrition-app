@@ -7,9 +7,9 @@ function Modal (props) {
 
   if (buttons) {
     domButtons = buttons.map((button, idx) => {
-      const { label, cssClass, onClick } = button;
+      const { label, cssClass, onClick, disabled } = button;
 
-      return <button key={idx} onClick={onClick} className={`btn ${cssClass}`} type="button">
+      return <button disabled={disabled} key={idx} onClick={onClick} className={`btn ${cssClass} col my-1 mx-2`} type="button">
         {label}
       </button>;
     });
@@ -29,7 +29,9 @@ function Modal (props) {
             {children}
           </div>
           <div className="modal-footer">
-            {domButtons}
+            <div className="row">
+              {domButtons}
+            </div>
           </div>
         </div>
       </div>
