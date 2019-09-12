@@ -1,0 +1,28 @@
+{
+  "foods": [
+    {
+      "id": 1,
+      "name": "fried chicken",
+      "servingSize": 3,
+      "servingSizeUnit": "ounce",
+      "nutrition": {
+        "fat": 30,
+        "protein": 34,
+        "carbs": 324,
+        "calories": 12345
+      }
+    },
+    {
+      "id": 2,
+      "name": "garlic bread",
+      "servingSize": 4,
+      "servingSizeUnit": "ounce",
+      "nutrition": {
+        "fat": 300,
+        "protein": 343,
+        "carbs": 324,
+        "calories": 1233
+      }
+    }
+  ]
+}
