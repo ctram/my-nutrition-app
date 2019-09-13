@@ -20,6 +20,11 @@ function NavBar() {
               Add Food To Library
             </Link>
           </li>
+          <li className="nav-item">
+            <Link to="/add-exercise-to-library" className="nav-link">
+              Add Exercise To Library
+            </Link>
+          </li>
         </ul>
       </div>
     </nav>
