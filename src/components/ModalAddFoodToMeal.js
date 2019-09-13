@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import Modal from './Modal';
+import Modal from "./Modal";
 
 class ModalAddFoodToMeal extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class ModalAddFoodToMeal extends React.Component {
 
     this.state = {
       foodTemplates,
-      selectedFoodTemplateId: '',
+      selectedFoodTemplateId: "",
       numberServings: 1
     };
 
@@ -38,21 +38,30 @@ class ModalAddFoodToMeal extends React.Component {
   }
 
   onClickAddFoodToMeal() {
-    const { foodTemplates, selectedFoodTemplateId, numberServings } = this.state;
+    const {
+      foodTemplates,
+      selectedFoodTemplateId,
+      numberServings
+    } = this.state;
     const { onClickAddFoodToMeal, mealType } = this.props;
 
     const foodTemplate = foodTemplates.find(foodTemplate => {
       return String(foodTemplate.id) === selectedFoodTemplateId;
-    })
+    });
 
     const { name, servingSize, servingUnit, nutrition } = foodTemplate;
 
-    const foodItem = { name, servingSize, servingUnit, nutrition, numberServings };
+    const foodItem = {
+      name,
+      servingSize,
+      servingUnit,
+      nutrition,
+      numberServings
+    };
 
-    onClickAddFoodToMeal(foodItem, mealType)
-      .then(() => {
-        this.resetState();
-      });
+    onClickAddFoodToMeal(foodItem, mealType).then(() => {
+      this.resetState();
+    });
   }
 
   onClickAddFoodToLibrary() {
@@ -61,41 +70,48 @@ class ModalAddFoodToMeal extends React.Component {
   }
 
   resetState() {
-    this.setState({ selectedFoodTemplateId: '', numberServings: 1 });
+    this.setState({ selectedFoodTemplateId: "", numberServings: 1 });
   }
 
   render() {
-    const { selectedFoodTemplateId, foodTemplates, numberServings } = this.state;
+    const {
+      selectedFoodTemplateId,
+      foodTemplates,
+      numberServings
+    } = this.state;
     const { onClickClose } = this.props;
 
-
-    let domOptions = [
-      <option key={-1} value={''} label="Select A Food" />
-    ];
+    let domOptions = [<option key={-1} value={""} label="Select A Food" />];
 
     if (foodTemplates && foodTemplates.length > 0) {
       const _foodTemplates = foodTemplates.map((foodTemplate, idx) => {
         const { name, servingSize, servingUnit, id } = foodTemplate;
 
-        return <option key={idx} value={id} label={`${name} (${servingSize} ${servingUnit})`} />
+        return (
+          <option
+            key={idx}
+            value={id}
+            label={`${name} (${servingSize} ${servingUnit})`}
+          />
+        );
       });
 
       domOptions = domOptions.concat(_foodTemplates);
     }
 
-    const formId = 'form-add-food-to-meal';
+    const formId = "form-add-food-to-meal";
 
     const buttons = [
       {
-        label: 'Add Food To Meal',
-        cssClass: 'btn-primary',
+        label: "Add Food To Meal",
+        cssClass: "btn-primary",
         disabled: !selectedFoodTemplateId,
         form: formId,
         onClick: this.onClickAddFoodToMeal
       },
       {
-        label: 'Add New Food To Library',
-        cssClass: 'btn-secondary',
+        label: "Add New Food To Library",
+        cssClass: "btn-secondary",
         form: formId,
         onClick: this.onClickAddFoodToLibrary
       }
@@ -111,18 +127,29 @@ class ModalAddFoodToMeal extends React.Component {
         <form id={formId}>
           <div className="form-group">
             <label htmlFor="select-food">Name</label>
-            <select onChange={this.onChangeSelect} value={selectedFoodTemplateId} id="select-food" className="form-control text-capitalize">
+            <select
+              onChange={this.onChangeSelect}
+              value={selectedFoodTemplateId}
+              id="select-food"
+              className="form-control text-capitalize"
+            >
               {domOptions}
             </select>
           </div>
 
-          {
-            selectedFoodTemplateId &&
+          {selectedFoodTemplateId && (
             <div className="form-group">
               <label htmlFor="input-number-servings">Number of Servings</label>
-              <input onChange={this.onChangeNumberServings} value={numberServings} min="1" id="input-number-servings" type="number" className="form-control" />
+              <input
+                onChange={this.onChangeNumberServings}
+                value={numberServings}
+                min="1"
+                id="input-number-servings"
+                type="number"
+                className="form-control"
+              />
             </div>
-          }
+          )}
         </form>
       </Modal>
     );
