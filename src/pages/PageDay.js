@@ -3,17 +3,12 @@ import moment from "moment";
 
 import NavDate from "../components/NavDate";
 import MealStats from "../components/MealStats";
+import Exercises from "../components/Exercises";
 import ModalAddFoodToMeal from "../components/ModalAddFoodToMeal";
 
-import mockData from "../mock-data/days.json";
-
 import { newDayTemplate } from "../helpers/days";
-import { DATE_FORMAT } from "../constants/constants";
 
 import { withRouter } from "react-router";
-
-window.pageDayTimesContructorRan = 0
-window.pageDayTimesUpdateRan = 0
 
 class PageDay extends React.Component {
   constructor(props) {
@@ -35,12 +30,8 @@ class PageDay extends React.Component {
       modalToShow: null
     };
 
-    window.pageDayTimesContructorRan += 1;
-
     this.idModal = "my-modal";
 
-    this.idModalAddFood = "modal-add-food-to-meal";
-    this.idModalAddExercise = "modal-add-exercise";
     this.showModal = this.showModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.showModalAddFoodToMeal = this.showModalAddFoodToMeal.bind(this);
@@ -59,13 +50,12 @@ class PageDay extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    window.pageDayTimesUpdateRan += 1;
-
     const {
       foodTemplates: prevFoodTemplates,
       days: prevDays,
       date: prevDate
     } = prevProps;
+
     const { foodTemplates, days, date } = this.props;
 
     if (
@@ -198,6 +188,9 @@ class PageDay extends React.Component {
             items={dinner.items}
             onClickAddFood={this.showModalAddFoodToMeal}
           />
+        </div>
+        <div className="py-3">
+          <Exercises />
         </div>
       </div>
     );
