@@ -8,8 +8,6 @@ import ModalAddFoodToMeal from "../components/ModalAddFoodToMeal";
 
 import { newDayTemplate } from "../helpers/days";
 
-import { withRouter } from "react-router";
-
 class PageDay extends React.Component {
   constructor(props) {
     super(props);
@@ -197,4 +195,4 @@ class PageDay extends React.Component {
   }
 }
 
-export default withRouter(PageDay);
+export default PageDay;
