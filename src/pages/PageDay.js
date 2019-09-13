@@ -39,6 +39,7 @@ class PageDay extends React.Component {
     this.onClickAddFoodToMeal = this.onClickAddFoodToMeal.bind(this);
     this.changeDate = this.changeDate.bind(this);
     this.showModalAddExerciseToDay = this.showModalAddExerciseToDay.bind(this);
+    this.onAddExerciseToDay = this.onAddExerciseToDay.bind(this);
   }
 
   componentDidMount() {
@@ -114,6 +115,15 @@ class PageDay extends React.Component {
     });
   }
 
+  onAddExerciseToDay(exercise) {
+    const { onAddExerciseToDay } = this.props;
+
+    return onAddExerciseToDay(exercise).then(() => {
+      this.showModal(null);
+      return Promise.resolve();
+    });
+  }
+
   changeDate(direction) {
     const { date, days } = this.state;
     const m = moment(date);
@@ -148,7 +158,8 @@ class PageDay extends React.Component {
     } = this.state;
 
     const day = days[date];
-    const foods = day.foods;
+
+    const { foods, exercises } = day;
     const { breakfast, lunch, dinner, snacks } = foods;
 
     const defaultModal = (
@@ -171,7 +182,7 @@ class PageDay extends React.Component {
       case "modalAddExerciseToDay":
         domModal = (
           <ModalAddExerciseToDay
-            onClickAddExerciseToDay={this.addExerciseToDay}
+            onAddExerciseToDay={this.onAddExerciseToDay}
             onClickAddExerciseToLibrary={this.goToPageAddExerciseToLibrary}
             onClickClose={this.closeModal}
             exerciseTemplates={exerciseTemplates}
@@ -208,7 +219,10 @@ class PageDay extends React.Component {
           />
         </div>
         <div className="py-3">
-          <Exercises onClickAddExercise={this.showModalAddExerciseToDay} />
+          <Exercises
+            exercises={exercises}
+            onClickAddExercise={this.showModalAddExerciseToDay}
+          />
         </div>
       </div>
     );
