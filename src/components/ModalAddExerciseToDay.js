@@ -1,6 +1,6 @@
 import React from "react";
 
-import ModalAddGenericItemToCollection from './ModalAddGenericItemToCollection';
+import ModalAddGenericItemToCollection from "./ModalAddGenericItemToCollection";
 
 class ModalAddExerciseToDay extends React.Component {
   constructor(props) {
@@ -9,57 +9,88 @@ class ModalAddExerciseToDay extends React.Component {
     const { exerciseTemplates } = props;
 
     this.state = {
-      exerciseTemplates,
-      selectedExerciseTemplateId: ''
+      exerciseTemplates
     };
   }
 
   render() {
-    const { onClickAddExerciseToDay, onClickAddExerciseToLibrary, onClickClose } = this.props;
-    const { exerciseTemplates, selectedExerciseTemplateId } = this.state;
+    const {
+      onAddExerciseToDay,
+      onClickAddExerciseToLibrary,
+      onClickClose,
+      onSubmitExercise
+    } = this.props;
+    const { exerciseTemplates } = this.state;
 
-    const domExerciseTemplateOptions = exerciseTemplates.map((exerciseTemplate, idx) => {
-      const { id, name } = exerciseTemplate;
-      return <option value={id}>{name}</option>;
-    });
+    const defaultSelectValue = exerciseTemplates[0].id || "";
+    const defaultName = exerciseTemplates[0].name || "";
+    const formId = "form-add-exercise";
 
     const buttons = [
       {
-        cssClass: 'btn-primary col',
-        label: 'Add Exercise To Day',
-        onClick: () => {},
-        disabled: !selectedExerciseTemplateId
+        formId,
+        cssClass: "btn-primary col",
+        label: "Add Exercise To Day",
+        type: "submit",
+        disabled: false
       }
     ];
+
+    const dataAttributes = {
+      selectedTemplateId: defaultSelectValue,
+      name: defaultName,
+      repsPerSet: 0,
+      numberOfSets: 0,
+      duration: 0
+    };
 
     return (
       <div className="modal-add-exercise-to-day">
         <ModalAddGenericItemToCollection
           title="Add Exercise"
           entityName="exercise"
-          onChange={() => {}}
-          onClickAddItemToDiary={onClickAddExerciseToDay}
-          onClickAddFoodToLibrary={onClickAddExerciseToLibrary}
+          formId="form-add-exercise"
           onClickClose={onClickClose}
           buttons={buttons}
+          dataAttributes={dataAttributes}
+          templates={exerciseTemplates}
+          onSubmit={onAddExerciseToDay}
         >
           <div className="form-group">
-            <label htmlFor="select-exercise-activity">Exercise Activity</label>
-            <select id="select-exercise-activity" className="form-control text-capitalize">
-              {domExerciseTemplateOptions}
-            </select>
-          </div>
-          <div className="form-group">
             <label htmlFor="input-duration">Duration (minutes)</label>
-            <input id="input-duration" type="number" min="0" className="form-control" />
+            <input
+              defaultValue={dataAttributes.duration}
+              data-attr-name="duration"
+              id="input-duration"
+              type="number"
+              min="0"
+              className="form-control"
+              required
+            />
           </div>
           <div className="form-group">
-            <label htmlFor="input-number-per-set">Number Per Set</label>
-            <input id="input-number-per-set" type="number" min="0" className="form-control" />
+            <label htmlFor="input-number-per-set">Reps Per Set</label>
+            <input
+              defaultValue={dataAttributes.repsPerSet}
+              data-attr-name="repsPerSet"
+              id="input-reps-per-set"
+              type="number"
+              min="0"
+              className="form-control"
+              required
+            />
           </div>
           <div className="form-group">
             <label htmlFor="input-number-of-sets">Number Of Sets</label>
-            <input id="input-number-of-sets" type="number" min="0" className="form-control" />
+            <input
+              defaultValue={dataAttributes.numberOfSets}
+              data-attr-name="numberOfSets"
+              id="input-number-of-sets"
+              type="number"
+              min="0"
+              className="form-control"
+              required
+            />
           </div>
         </ModalAddGenericItemToCollection>
       </div>
