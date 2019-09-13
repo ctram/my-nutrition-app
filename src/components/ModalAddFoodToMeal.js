@@ -19,6 +19,7 @@ class ModalAddFoodToMeal extends React.Component {
     this.onClickAddFoodToMeal = this.onClickAddFoodToMeal.bind(this);
     this.onClickAddFoodToLibrary = this.onClickAddFoodToLibrary.bind(this);
     this.resetState = this.resetState.bind(this);
+    this.onClickClose = this.onClickClose.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -65,8 +66,12 @@ class ModalAddFoodToMeal extends React.Component {
   }
 
   onClickAddFoodToLibrary() {
-    this.resetState();
     this.props.onClickAddFoodToLibrary();
+  }
+
+  onClickClose() {
+    this.resetState();
+    this.props.onClickClose();
   }
 
   resetState() {
@@ -79,7 +84,6 @@ class ModalAddFoodToMeal extends React.Component {
       foodTemplates,
       numberServings
     } = this.state;
-    const { onClickClose } = this.props;
 
     let domOptions = [<option key={-1} value={""} label="Select A Food" />];
 
@@ -121,7 +125,7 @@ class ModalAddFoodToMeal extends React.Component {
       <Modal
         title="Add Food To Meal"
         id="modal-add-food-to-meal"
-        onClickClose={onClickClose}
+        onClickClose={this.onClickClose}
         buttons={buttons}
       >
         <form id={formId}>
