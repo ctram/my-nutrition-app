@@ -1,15 +1,15 @@
 import React from "react";
 
-import foodTemplatesData from "../mock-data/food-templates.json";
+import { MEASURING_UNITS_LABELS } from "../constants/constants";
 
 class FormAddFoodToLibrary extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      name: '',
+      name: "",
       servingSize: 1,
-      servingUnit: 'ounce',
+      servingUnit: "ounce",
       fat: 0,
       carbs: 0,
       protein: 0,
@@ -21,10 +21,9 @@ class FormAddFoodToLibrary extends React.Component {
   }
 
   onChange(e) {
+    const attrName = e.target.getAttribute("data-attribute-name");
 
-    const attrName = e.target.getAttribute('data-attribute-name');
-
-    const nextState = {}
+    const nextState = {};
     nextState[attrName] = e.target.value;
     this.setState(nextState);
   }
@@ -33,7 +32,32 @@ class FormAddFoodToLibrary extends React.Component {
     e.preventDefault();
 
     const { onSubmit } = this.props;
-    onSubmit(this.state);
+    const attrs = { ...this.state };
+
+    for (const attr in attrs) {
+      if (["name", "servingUnit"].indexOf(attr) === -1) {
+        attrs[attr] = parseInt(attrs[attr]);
+      }
+    }
+
+    const {
+      name,
+      servingSize,
+      servingUnit,
+      fat,
+      carbs,
+      protein,
+      calories
+    } = attrs;
+
+    const newFood = {
+      name,
+      servingSize,
+      servingUnit,
+      nutrition: { fat, protein, carbs, calories }
+    };
+
+    onSubmit(newFood);
   }
 
   render() {
@@ -49,8 +73,16 @@ class FormAddFoodToLibrary extends React.Component {
 
     const formId = "form-add-food-to-library";
 
+    const domServingUnitOptions = [];
+
+    for (const fullLabel in MEASURING_UNITS_LABELS) {
+      domServingUnitOptions.push(
+        <option value={fullLabel}>{fullLabel}</option>
+      );
+    }
+
     return (
-      <form id={formId} onSubmit={this.submitForm} >
+      <form id={formId} onSubmit={this.submitForm}>
         <div className="form-group">
           <label htmlFor="input-food-name">Name</label>
           <input
@@ -70,12 +102,9 @@ class FormAddFoodToLibrary extends React.Component {
             value={servingUnit}
             id="select-food-serving-unit"
             data-attribute-name="servingUnit"
-            className="form-control"
+            className="form-control text-capitalize"
           >
-            <option value="pound">Pound</option>
-            <option value="ounce">Ounce</option>
-            <option value="gram">Gram</option>
-            <option value="liter">Liter</option>
+            {domServingUnitOptions}
           </select>
         </div>
         <div className="form-group">
@@ -93,7 +122,7 @@ class FormAddFoodToLibrary extends React.Component {
         </div>
 
         <fieldset>
-          <legend>Nutrition</legend>
+          <legend>Nutrition Per Serving</legend>
           <div className="form-group">
             <label htmlFor="input-fat">Fat (g)</label>
             <input
