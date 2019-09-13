@@ -1,91 +1,101 @@
-import React from 'react';
-import moment from 'moment';
+import React from "react";
+import moment from "moment";
 
-import NavDate from '../components/NavDate';
-import MealStats from '../components/MealStats';
-import ModalAddFoodToMeal from '../components/ModalAddFoodToMeal';
+import NavDate from "../components/NavDate";
+import MealStats from "../components/MealStats";
+import ModalAddFoodToMeal from "../components/ModalAddFoodToMeal";
 
-import mockData from '../mock-data/days.json';
+import mockData from "../mock-data/days.json";
 
-import { newDayTemplate } from '../helpers/days';
-import { DATE_FORMAT } from '../constants/constants';
+import { newDayTemplate } from "../helpers/days";
+import { DATE_FORMAT } from "../constants/constants";
 
-import { withRouter } from 'react-router';
+import { withRouter } from "react-router";
+
+window.pageDayTimesContructorRan = 0
+window.pageDayTimesUpdateRan = 0
 
 class PageDay extends React.Component {
   constructor(props) {
     super(props);
 
-    const { foodTemplates } = props;
+    const { foodTemplates, days, date } = props;
 
-    const dateToday = moment().format(DATE_FORMAT);
-    const days = {};
-    days[dateToday] = newDayTemplate();
+    if (!days[date]) {
+      days[date] = newDayTemplate();
+    }
 
     this.state = {
       foodTemplates,
       days,
-      date: dateToday,
+      date,
       modalAddFoodVisible: false,
       modalAddExerciseVisible: false,
       mealTypeToAddItemTo: null,
       modalToShow: null
     };
 
-    this.idModal = 'my-modal';
+    window.pageDayTimesContructorRan += 1;
 
-    this.idModalAddFood = 'modal-add-food-to-meal';
-    this.idModalAddExercise = 'modal-add-exercise';
+    this.idModal = "my-modal";
+
+    this.idModalAddFood = "modal-add-food-to-meal";
+    this.idModalAddExercise = "modal-add-exercise";
     this.showModal = this.showModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.showModalAddFoodToMeal = this.showModalAddFoodToMeal.bind(this);
     this.goToPageAddFoodToLibrary = this.goToPageAddFoodToLibrary.bind(this);
-    this.addFoodToMeal = this.addFoodToMeal.bind(this);
+    this.onClickAddFoodToMeal = this.onClickAddFoodToMeal.bind(this);
     this.changeDate = this.changeDate.bind(this);
   }
 
   componentDidMount() {
     // tap into jQuery to activate Bootstrap modal;
-    window.$(`#${this.idModal}`)
-      .modal({
-        backdrop: 'static',
-        show: false,
-        focus: false
-      });
-
-    const { days } = this.state;
-
-    this.setState({ days: { ...days, ...mockData } });
+    window.$(`#${this.idModal}`).modal({
+      backdrop: "static",
+      show: false,
+      focus: false
+    });
   }
 
   componentDidUpdate(prevProps) {
-    const { foodTemplates } = this.props;
+    window.pageDayTimesUpdateRan += 1;
 
-    if (prevProps.foodTemplates !== foodTemplates) {
-      this.setState({ foodTemplates });
+    const {
+      foodTemplates: prevFoodTemplates,
+      days: prevDays,
+      date: prevDate
+    } = prevProps;
+    const { foodTemplates, days, date } = this.props;
+
+    if (
+      prevFoodTemplates !== foodTemplates ||
+      prevDays !== days ||
+      prevDate !== date
+    ) {
+      this.setState({ foodTemplates, days, date });
     }
   }
 
   showModal(modalType) {
     if (modalType !== this.state.modalToShow) {
-      window.$(`#${this.idModal}`).modal('hide');
+      window.$(`#${this.idModal}`).modal("hide");
     }
 
     this.setState({ modalToShow: modalType }, () => {
-      window.$(`#${this.idModal}`)
-        .modal({
-          backdrop: 'static',
-          show: false,
-          focus: false
-        });
+      window.$(`#${this.idModal}`).modal({
+        backdrop: "static",
+        show: false,
+        focus: false
+      });
 
-      window.$(`#${this.idModal}`).modal(!!modalType ? 'show' : 'hide');
-    })
+      window.$(`#${this.idModal}`).modal(!!modalType ? "show" : "hide");
+    });
   }
 
   showModalAddFoodToMeal(mealType) {
     this.setState({ mealTypeToAddItemTo: mealType }, () => {
-      this.showModal('modalAddFoodToMeal');
+      this.showModal("modalAddFoodToMeal");
     });
   }
 
@@ -98,19 +108,12 @@ class PageDay extends React.Component {
     this.showModal(null);
   }
 
-  addFoodToMeal(food, mealType) {
-    const { days, date } = this.state;
+  onClickAddFoodToMeal(food, mealType) {
+    const { onAddFoodToMeal } = this.props;
 
-    let day = days[date];
-
-    day.foods[mealType].items.push(food);
-    days[date] = day;
-
-    return new Promise(resolve => {
-      this.setState({ days }, () => {
-        this.showModal(null);
-        return resolve();
-      })
+    return onAddFoodToMeal(food, mealType).then(() => {
+      this.showModal(null);
+      return Promise.resolve();
     });
   }
 
@@ -118,15 +121,17 @@ class PageDay extends React.Component {
     const { date, days } = this.state;
     const m = moment(date);
 
-    if (direction === 'prev') {
-      m.subtract(1, 'day');
-    } else if (direction === 'next') {
-      m.add(1, 'day');
+    if (direction === "prev") {
+      m.subtract(1, "day");
+    } else if (direction === "next") {
+      m.add(1, "day");
     } else {
-      console.error(`'${direction}' is not an expected direction; was expecting 'prev' or 'next'`);
+      console.error(
+        `'${direction}' is not an expected direction; was expecting 'prev' or 'next'`
+      );
     }
 
-    const nextDate = m.format('YYYY-MM-DD');
+    const nextDate = m.format("YYYY-MM-DD");
 
     if (!days[nextDate]) {
       days[nextDate] = newDayTemplate();
@@ -136,27 +141,34 @@ class PageDay extends React.Component {
   }
 
   render() {
-    const { days, date, mealTypeToAddItemTo, modalToShow, foodTemplates } = this.state;
-
+    const {
+      days,
+      date,
+      mealTypeToAddItemTo,
+      modalToShow,
+      foodTemplates
+    } = this.state;
 
     const day = days[date];
     const foods = day.foods;
     const { breakfast, lunch, dinner, snacks } = foods;
 
-    const defaultModal = <ModalAddFoodToMeal
-                            date={date}
-                            mealType={mealTypeToAddItemTo}
-                            onClickClose={this.closeModal}
-                            onClickAddFoodToMeal={this.addFoodToMeal}
-                            onClickAddFoodToLibrary={this.goToPageAddFoodToLibrary}
-                            foodTemplates={foodTemplates}
-                          />;
+    const defaultModal = (
+      <ModalAddFoodToMeal
+        date={date}
+        mealType={mealTypeToAddItemTo}
+        onClickClose={this.closeModal}
+        onClickAddFoodToMeal={this.onClickAddFoodToMeal}
+        onClickAddFoodToLibrary={this.goToPageAddFoodToLibrary}
+        foodTemplates={foodTemplates}
+      />
+    );
 
     let domModal = null;
 
     switch (modalToShow) {
-      case 'modalAddFoodToMeal':
-        domModal = defaultModal
+      case "modalAddFoodToMeal":
+        domModal = defaultModal;
         break;
       default:
         domModal = defaultModal;
@@ -165,10 +177,7 @@ class PageDay extends React.Component {
     return (
       <div className="day">
         {domModal}
-        <NavDate
-          date={date}
-          onChangeDate={this.changeDate}
-        />
+        <NavDate date={date} onChangeDate={this.changeDate} />
         <div className="py-3">
           <MealStats
             name="breakfast"
