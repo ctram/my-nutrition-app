@@ -1,0 +1,9 @@
+.toast .card {
+  box-shadow: rgba(0, 0, 0, 0.0980392) 0px 4px 12px 0px;
+  /* color: white; */
+}
+
+.toast.toast-success .card {
+  border: 3px solid #46ae6c;
+  background: #8bd4aa;
+}
