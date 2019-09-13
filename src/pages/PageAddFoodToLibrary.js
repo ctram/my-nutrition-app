@@ -8,13 +8,13 @@ class PageAddFoodToLibrary extends React.Component {
     const { onSubmitNewFood } = this.props;
 
     return (
-      <div>
-
+      <div className="page-add-food-to-library">
         <Link to="/" className="btn btn-secondary">
           Back To Diary
         </Link>
 
-        <div className="my-5">
+        <div className="my-3">
+          <h1 className="mb-5">Add Food To Library</h1>
           <FormAddFoodToLibrary onSubmit={onSubmitNewFood} />
         </div>
       </div>
