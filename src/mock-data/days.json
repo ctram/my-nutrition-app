@@ -1,5 +1,5 @@
 {
-  "2019-09-12": {
+  "2019-09-13": {
     "foods": {
       "breakfast": {
         "items": [
@@ -36,14 +36,14 @@
         "items": []
       },
       "snacks": []
-    }
-  },
-  "exercises": [
-    {
-      "name": "push ups",
-      "numberPerSet": 10,
-      "numberOfSets": 5,
-      "duration": 1000 
-    }
-  ]
+    },
+    "exercises": [
+      {
+        "name": "push ups",
+        "repsPerSet": 10,
+        "numberOfSets": 5,
+        "duration": 1000
+      }
+    ]
+  }
 }
