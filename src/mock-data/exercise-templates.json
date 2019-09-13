@@ -2,24 +2,15 @@
   "exercises": [
     {
       "id": 1,
-      "name": "push ups",
-      "repsPerSet": 10,
-      "numberOfSets": 3,
-      "duration": 0
+      "name": "push ups"
     },
     {
       "id": 2,
-      "name": "jog",
-      "repsPerSet": 10,
-      "numberOfSets": 3,
-      "duration": 100
+      "name": "jog"
     },
     {
       "id": 3,
-      "name": "crunches",
-      "repsPerSet": 50,
-      "numberOfSets": 3,
-      "duration": 0
+      "name": "crunches"
     }
   ]
 }
