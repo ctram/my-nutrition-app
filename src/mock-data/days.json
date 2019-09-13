@@ -37,5 +37,13 @@
       },
       "snacks": []
     }
-  }
+  },
+  "exercises": [
+    {
+      "name": "push ups",
+      "numberPerSet": 10,
+      "numberOfSets": 5,
+      "duration": 1000 
+    }
+  ]
 }
