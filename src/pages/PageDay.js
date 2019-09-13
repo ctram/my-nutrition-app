@@ -8,7 +8,7 @@ import ModalAddFoodToMeal from '../components/ModalAddFoodToMeal';
 import mockData from '../mock-data/days.json';
 
 import { newDayTemplate } from '../helpers/days';
-import { DATE_FORMAT } from '../constants/base';
+import { DATE_FORMAT } from '../constants/constants';
 
 import { withRouter } from 'react-router';
 
@@ -91,7 +91,7 @@ class PageDay extends React.Component {
 
   goToPageAddFoodToLibrary() {
     this.showModal(null);
-    this.props.history.push('add-food-to-library');
+    this.props.goToPageAddFoodToLibrary();
   }
 
   closeModal() {
