@@ -1,4 +1,10 @@
 import React from "react";
+import moment from "moment";
+
+import { DATE_FORMAT } from "../constants/constants";
+
+import { Route, Switch } from "react-router-dom";
+import { withRouter } from "react-router";
 
 import NavBar from "./NavBar";
 
@@ -6,16 +12,10 @@ import PageDay from "../pages/PageDay";
 import PageAddFoodToLibrary from "../pages/PageAddFoodToLibrary";
 import Toast from "../components/Toast";
 
-import { Route, Switch } from "react-router-dom";
-
-import { withRouter } from "react-router";
-
 import foodTemplatesData from "../mock-data/food-templates.json";
+import exerciseTemplatesData from "../mock-data/exercise-templates.json";
 
-import moment from "moment";
-import { DATE_FORMAT } from "../constants/constants";
-
-import mockData from "../mock-data/days.json";
+import mockDays from "../mock-data/days.json";
 
 import "../styles/App.css";
 
@@ -48,7 +48,8 @@ class App extends React.Component {
 
       this.setState({
         foodTemplates: foodTemplatesData.foods,
-        days: { ...days, ...mockData }
+        exerciseTemplates: exerciseTemplatesData.exercises,
+        days: { ...days, ...mockDays }
       });
     });
   }
