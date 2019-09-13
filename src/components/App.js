@@ -32,11 +32,11 @@ class App extends React.Component {
       date: moment().format(DATE_FORMAT)
     };
 
-    this.addFoodToLibrary = this.addFoodToLibrary.bind(this);
+    this.addFoodTemplateToLibrary = this.addFoodTemplateToLibrary.bind(this);
     this.goToPageAddFoodToLibrary = this.goToPageAddFoodToLibrary.bind(this);
     this.addFoodToMeal = this.addFoodToMeal.bind(this);
     this.addExerciseToDay = this.addExerciseToDay.bind(this);
-    this.addExerciseToLibrary = this.addExerciseToLibrary.bind(this);
+    this.addExerciseTemplateToLibrary = this.addExerciseTemplateToLibrary.bind(this);
   }
 
   componentDidMount() {
@@ -57,9 +57,12 @@ class App extends React.Component {
     });
   }
 
-  addFoodToLibrary(food) {
+  addFoodTemplateToLibrary(food) {
+    const { fat, protein, carbs, calories, name, servingUnit, servingSize } = food;
+    const nutrition = { fat, protein, carbs, calories };
+
     const { foodTemplates } = this.state;
-    const newFood = { ...food, id: Math.random() };
+    const newFood = { name, id: Math.random(), servingUnit, servingSize, nutrition };
     foodTemplates.push(newFood);
 
     this.props.history.push("/");
@@ -106,7 +109,7 @@ class App extends React.Component {
     });
   }
 
-  addExerciseToLibrary(exercise) {
+  addExerciseTemplateToLibrary(exercise) {
     const { exerciseTemplates } = this.state;
     const { name } = exercise;
 
@@ -150,13 +153,13 @@ class App extends React.Component {
             <Route
               path="/add-food-to-library"
               render={() => (
-                <PageAddFoodToLibrary onSubmitNewFood={this.addFoodToLibrary} />
+                <PageAddFoodToLibrary onSubmitFoodTemplate={this.addFoodTemplateToLibrary} />
               )}
             />
             <Route
               path="/add-exercise-to-library"
               render={() => (
-                <PageAddExerciseToLibrary onSubmitNewExercise={this.addExerciseToLibrary} />
+                <PageAddExerciseToLibrary onSubmitExerciseTemplate={this.addExerciseTemplateToLibrary} />
               )}
             />
             <Route
