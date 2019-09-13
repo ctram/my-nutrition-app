@@ -25,6 +25,7 @@ class App extends React.Component {
 
     this.state = {
       foodTemplates: [],
+      exerciseTemplates: [],
       toastMessage: "",
       days: {},
       date: moment().format(DATE_FORMAT)
@@ -94,7 +95,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { foodTemplates, toastMessage, days, date } = this.state;
+    const { foodTemplates, toastMessage, days, date, exerciseTemplates } = this.state;
 
     return (
       <div className="App">
@@ -117,6 +118,7 @@ class App extends React.Component {
               render={() => (
                 <PageDay
                   foodTemplates={foodTemplates}
+                  exerciseTemplates={exerciseTemplates}
                   goToPageAddFoodToLibrary={this.goToPageAddFoodToLibrary}
                   days={days}
                   date={date}
