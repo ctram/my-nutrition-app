@@ -18,9 +18,9 @@ class Modal extends React.Component {
 
     if (buttons) {
       domButtons = buttons.map((button, idx) => {
-        const { label, cssClass, onClick, disabled, formId } = button;
+        const { label, cssClass, onClick, disabled, formId, type } = button;
 
-        return <button form={formId} disabled={disabled} key={idx} onClick={onClick} className={`btn ${cssClass} col my-1 mx-2`} type="button">
+        return <button form={formId} disabled={disabled} key={idx} onClick={onClick} className={`btn ${cssClass} col my-1 mx-2`} type={type}>
           {label}
         </button>;
       });
