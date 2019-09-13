@@ -34,6 +34,7 @@ class App extends React.Component {
     this.addFoodToLibrary = this.addFoodToLibrary.bind(this);
     this.goToPageAddFoodToLibrary = this.goToPageAddFoodToLibrary.bind(this);
     this.addFoodToMeal = this.addFoodToMeal.bind(this);
+    this.addExerciseToDay = this.addExerciseToDay.bind(this);
   }
 
   componentDidMount() {
@@ -85,6 +86,24 @@ class App extends React.Component {
     });
   }
 
+  addExerciseToDay(exercise) {
+    const { days, date } = this.state;
+
+    let day = days[date];
+
+    day.exercises.push(exercise);
+    days[date] = day;
+
+    const toastMessage = `${exercise.name} exercise added`;
+
+    return new Promise(resolve => {
+      this.setState({ days, toastMessage }, () => {
+        this.scrollToTop();
+        return resolve();
+      });
+    });
+  }
+
   goToPageAddFoodToLibrary() {
     this.props.history.push("/add-food-to-library");
     document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -124,6 +143,7 @@ class App extends React.Component {
                   days={days}
                   date={date}
                   onAddFoodToMeal={this.addFoodToMeal}
+                  onAddExerciseToDay={this.addExerciseToDay}
                 />
               )}
             />
