@@ -77,7 +77,7 @@ class FormAddFoodToLibrary extends React.Component {
 
     for (const fullLabel in MEASURING_UNITS_LABELS) {
       domServingUnitOptions.push(
-        <option value={fullLabel}>{fullLabel}</option>
+        <option key={fullLabel} value={fullLabel}>{fullLabel}</option>
       );
     }
 
