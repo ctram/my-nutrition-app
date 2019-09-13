@@ -1,18 +1,12 @@
 import React from 'react';
 
-const SERVING_SIZE_UNIT_LABELS = {
-  'ounce': 'oz',
-  'pound': 'lbs',
-  'kilogram': 'kg',
-  'gram': 'g',
-  'milligram': 'mg'
-};
+import { MEASURING_UNITS_LABELS } from '../constants/constants';
 
 function MealItem(props) {
   const { name, servingUnit, servingSize, numberServings, nutrition } = props.item;
   const { calories } = nutrition;
 
-  const servingSizeUnitLabel = SERVING_SIZE_UNIT_LABELS[servingUnit];
+  const servingSizeUnitLabel = MEASURING_UNITS_LABELS[servingUnit];
   const totalPortion = `${servingSize * numberServings} ${servingSizeUnitLabel}`
 
   const details = { ...nutrition };
@@ -29,7 +23,7 @@ function MealItem(props) {
           {attr}
         </span>
         <span>
-          {value} g
+          {numberServings * value} g
         </span>
       </div>
     );
@@ -53,7 +47,7 @@ function MealItem(props) {
           Calories
         </span>
         <span>
-          {calories}
+          {calories * numberServings}
         </span>
       </div>
     </li>
