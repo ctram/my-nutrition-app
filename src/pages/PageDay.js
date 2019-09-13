@@ -5,6 +5,7 @@ import NavDate from "../components/NavDate";
 import MealStats from "../components/MealStats";
 import Exercises from "../components/Exercises";
 import ModalAddFoodToMeal from "../components/ModalAddFoodToMeal";
+import ModalAddExerciseToDay from "../components/ModalAddExerciseToDay";
 
 import { newDayTemplate } from "../helpers/days";
 
@@ -12,7 +13,7 @@ class PageDay extends React.Component {
   constructor(props) {
     super(props);
 
-    const { foodTemplates, days, date } = props;
+    const { foodTemplates, days, date, exerciseTemplates } = props;
 
     if (!days[date]) {
       days[date] = newDayTemplate();
@@ -20,6 +21,7 @@ class PageDay extends React.Component {
 
     this.state = {
       foodTemplates,
+      exerciseTemplates,
       days,
       date,
       modalAddFoodVisible: false,
@@ -36,6 +38,7 @@ class PageDay extends React.Component {
     this.goToPageAddFoodToLibrary = this.goToPageAddFoodToLibrary.bind(this);
     this.onClickAddFoodToMeal = this.onClickAddFoodToMeal.bind(this);
     this.changeDate = this.changeDate.bind(this);
+    this.showModalAddExerciseToDay = this.showModalAddExerciseToDay.bind(this);
   }
 
   componentDidMount() {
@@ -87,6 +90,10 @@ class PageDay extends React.Component {
     });
   }
 
+  showModalAddExerciseToDay() {
+    this.showModal("modalAddExerciseToDay");
+  }
+
   goToPageAddFoodToLibrary() {
     this.showModal(null);
     this.props.goToPageAddFoodToLibrary();
@@ -134,7 +141,8 @@ class PageDay extends React.Component {
       date,
       mealTypeToAddItemTo,
       modalToShow,
-      foodTemplates
+      foodTemplates,
+      exerciseTemplates
     } = this.state;
 
     const day = days[date];
@@ -157,6 +165,16 @@ class PageDay extends React.Component {
     switch (modalToShow) {
       case "modalAddFoodToMeal":
         domModal = defaultModal;
+        break;
+      case "modalAddExerciseToDay":
+        domModal = (
+          <ModalAddExerciseToDay
+            onClickAddExerciseToDay={this.addExerciseToDay}
+            onClickAddExerciseToLibrary={this.goToPageAddExerciseToLibrary}
+            onClickClose={this.closeModal}
+            exerciseTemplates={exerciseTemplates}
+          />
+        );
         break;
       default:
         domModal = defaultModal;
@@ -188,7 +206,7 @@ class PageDay extends React.Component {
           />
         </div>
         <div className="py-3">
-          <Exercises />
+          <Exercises onClickAddExercise={this.showModalAddExerciseToDay} />
         </div>
       </div>
     );
