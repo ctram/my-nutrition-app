@@ -10,6 +10,7 @@ import NavBar from "./NavBar";
 
 import PageDay from "../pages/PageDay";
 import PageAddFoodToLibrary from "../pages/PageAddFoodToLibrary";
+import PageAddExerciseToLibrary from "../pages/PageAddExerciseToLibrary";
 import Toast from "../components/Toast";
 
 import foodTemplatesData from "../mock-data/food-templates.json";
@@ -35,6 +36,7 @@ class App extends React.Component {
     this.goToPageAddFoodToLibrary = this.goToPageAddFoodToLibrary.bind(this);
     this.addFoodToMeal = this.addFoodToMeal.bind(this);
     this.addExerciseToDay = this.addExerciseToDay.bind(this);
+    this.addExerciseToLibrary = this.addExerciseToLibrary.bind(this);
   }
 
   componentDidMount() {
@@ -104,6 +106,24 @@ class App extends React.Component {
     });
   }
 
+  addExerciseToLibrary(exercise) {
+    const { exerciseTemplates } = this.state;
+    const { name } = exercise;
+
+    // quick and dirty, generate a, hopefully, unique id for the exericse.
+    // In real app, we'd send data to the server to create the exercise.
+    const id = parseInt(Math.random() * 1000000000);
+
+    exerciseTemplates.push({ id, name });
+
+    this.props.history.push("/");
+    this.setState({
+      exerciseTemplates,
+      toastMessage: `${exercise.name} added to library`
+    });
+    this.scrollToTop();
+  }
+
   goToPageAddFoodToLibrary() {
     this.props.history.push("/add-food-to-library");
     document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -131,6 +151,12 @@ class App extends React.Component {
               path="/add-food-to-library"
               render={() => (
                 <PageAddFoodToLibrary onSubmitNewFood={this.addFoodToLibrary} />
+              )}
+            />
+            <Route
+              path="/add-exercise-to-library"
+              render={() => (
+                <PageAddExerciseToLibrary onSubmitNewExercise={this.addExerciseToLibrary} />
               )}
             />
             <Route
