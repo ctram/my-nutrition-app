@@ -19,7 +19,7 @@ function NavDate (props) {
 
   return (
     <div className="nav-date">
-      <div className="card">
+      <div className="card p-3">
         <div className="d-flex align-items-center justify-content-center">
           <span onClick={() => (onChangeDate('prev'))} className="chevron">
             &lt;

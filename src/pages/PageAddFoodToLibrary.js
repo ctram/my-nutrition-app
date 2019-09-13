@@ -13,7 +13,7 @@ class PageAddFoodToLibrary extends React.Component {
           Back To Diary
         </Link>
 
-        <div className="my-3">
+        <div className="my-5">
           <h1 className="mb-5">Add Food To Library</h1>
           <FormAddFoodToLibrary onSubmit={onSubmitNewFood} />
         </div>
