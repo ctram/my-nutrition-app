@@ -3,7 +3,7 @@ import moment from 'moment';
 
 import '../styles/NavDate.css';
 
-import { DATE_FORMAT } from '../constants/base';
+import { DATE_FORMAT } from '../constants/constants';
 
 function NavDate (props) {
   const { date, onChangeDate } = props;

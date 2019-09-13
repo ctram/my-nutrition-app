@@ -6,12 +6,12 @@ export function sumItemStats (items) {
   }
 
   for (const item of items) {
-    const { fat, protein, calories, carbs } = item.nutrition;
+    const { numberServings, nutrition: { fat, protein, calories, carbs } } = item;
 
-    res['fat'] += fat;
-    res['protein'] += protein;
-    res['carbs'] += carbs;
-    res['calories'] += calories;
+    res['fat'] += fat * numberServings;
+    res['protein'] += protein * numberServings;
+    res['carbs'] += carbs * numberServings;
+    res['calories'] += calories * numberServings;
   }
 
   return res;
