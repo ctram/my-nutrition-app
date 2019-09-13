@@ -6,18 +6,25 @@ class ModalAddGenericItemToCollection extends React.Component {
   constructor(props) {
     super(props);
 
-    const { templates } = props;
+    const { templates, dataAttributes } = props;
 
-    this.state = {
+    const state = {
       templates,
       selectedTemplateId: ""
     };
 
-    this.onChange = this.onChange.bind(this);
+    for (const attr in dataAttributes) {
+      state[attr] = dataAttributes[attr];
+    }
+
+    this.state = state;
+
+    this.onFormChange = this.onFormChange.bind(this);
     this.onClickAddItemToDiary = this.onClickAddItemToDiary.bind(this);
     this.onClickAddItemToLibrary = this.onClickAddItemToLibrary.bind(this);
     this.resetState = this.resetState.bind(this);
     this.onClickClose = this.onClickClose.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -26,14 +33,6 @@ class ModalAddGenericItemToCollection extends React.Component {
     if (prevProps.templates !== templates) {
       this.setState({ templates });
     }
-  }
-
-  onChange(e) {
-    const attrName = e.target.getAttribute('data-attribute-name');
-    const newState = {};
-    newState[attrName] = e.target.value;
-
-    this.setState(newState);
   }
 
   onClickAddItemToDiary(data) {
@@ -51,6 +50,25 @@ class ModalAddGenericItemToCollection extends React.Component {
     this.props.onClickClose();
   }
 
+  onFormChange(e) {
+    const newState = { ...this.state };
+    const { templates } = this.props;
+    const value = e.target.value;
+    const attr = e.target.getAttribute("data-attr-name");
+
+    newState[attr] = value;
+
+    if (attr === 'selectedTemplateId') {
+      const template = templates.find(template => {
+        return template.id === parseInt(value);
+      })
+
+      newState['name'] = template.name
+    }
+
+    this.setState(newState);
+  }
+
   resetState() {
     const newState = { ...this.state };
 
@@ -61,18 +79,59 @@ class ModalAddGenericItemToCollection extends React.Component {
     this.setState(newState);
   }
 
+  onSubmit(e) {
+    e.preventDefault();
+
+    const attrs = { ...this.state };
+    delete attrs['templates'];
+
+    // cast values to numbers, if possible.
+    for (const attr in attrs) {
+      const val = attrs[attr];
+      const int = parseInt(val);
+      attrs[attr] = window.isNaN(int) ? val : int;
+    }
+
+    delete attrs['selectedTemplateId'];
+
+    this.props.onSubmit(attrs);
+  }
+
   render() {
-    const { title, entityName, children, buttons } = this.props;
-    const formId = `form-add-${entityName}`;
+    const { title, entityName, children, buttons, formId, dataAttributes: { selectedTemplateId } } = this.props;
+    const { templates } = this.state;
+
+    const domTemplateOptions = templates.map(
+      (template, idx) => {
+        const { id, name } = template;
+        return (
+          <option key={id} value={id}>
+            {name}
+          </option>
+        );
+      }
+    );
 
     return (
       <Modal
         title={title}
-        id={`modal-add-${entityName}`}
+        id={formId}
         onClickClose={this.onClickClose}
         buttons={buttons}
       >
-        <form id={formId}>
+        <form id={formId} onChange={this.onFormChange} onSubmit={this.onSubmit}>
+          <div className="form-group">
+            <label htmlFor="select-template-id">{entityName}</label>
+            <select
+              defaultValue={selectedTemplateId}
+              data-attr-name="selectedTemplateId"
+              id="select-template-id"
+              className="form-control text-capitalize"
+              required
+            >
+              {domTemplateOptions}
+            </select>
+          </div>
           {children}
         </form>
       </Modal>
