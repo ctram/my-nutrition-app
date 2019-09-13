@@ -36,6 +36,12 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // clear toastMessage when user navigates to new path.
+    this.props.history.listen(() => {
+      this.setState({ toastMessage: '' });
+    });
+
+    // mimick a call to server for data.
     Promise.resolve().then(() => {
       const { days } = this.state;
 
@@ -44,9 +50,6 @@ class App extends React.Component {
         days: { ...days, ...mockData }
       });
     });
-  }
-
-  componentDidUpdate() {
   }
 
   addFoodToLibrary(food) {
