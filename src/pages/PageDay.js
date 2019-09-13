@@ -54,17 +54,19 @@ class PageDay extends React.Component {
     const {
       foodTemplates: prevFoodTemplates,
       days: prevDays,
-      date: prevDate
+      date: prevDate,
+      exerciseTemplates: prevExerciseTemplates
     } = prevProps;
 
-    const { foodTemplates, days, date } = this.props;
+    const { foodTemplates, days, date, exerciseTemplates } = this.props;
 
     if (
       prevFoodTemplates !== foodTemplates ||
       prevDays !== days ||
-      prevDate !== date
+      prevDate !== date ||
+      prevExerciseTemplates !== exerciseTemplates
     ) {
-      this.setState({ foodTemplates, days, date });
+      this.setState({ foodTemplates, days, date, exerciseTemplates });
     }
   }
 

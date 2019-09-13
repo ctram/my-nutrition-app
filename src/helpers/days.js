@@ -11,6 +11,7 @@ export function newDayTemplate() {
         "items": []
       },
       "snacks": []
-    }
+    },
+    exercises: []
   };
 }
