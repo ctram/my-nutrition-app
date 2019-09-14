@@ -52,7 +52,7 @@ class App extends React.Component {
       this.setState({ toastMessage: "" });
     });
 
-    // mimick a call to server for data.
+    // mimic a call to server for data.
     Promise.resolve().then(() => {
       const { days } = this.state;
 
