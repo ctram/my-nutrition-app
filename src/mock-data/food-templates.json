@@ -23,6 +23,84 @@
         "carbs": 324,
         "calories": 1233
       }
+    },
+    {
+      "id": 3,
+      "name": "pancakes",
+      "servingSize": 3,
+      "servingUnit": "ounce",
+      "numberServings": 2,
+      "nutrition": {
+        "fat": 30,
+        "protein": 300,
+        "carbs": 0,
+        "calories": 500
+      }
+    },
+    {
+      "id": 4,
+      "name": "orange",
+      "servingSize": 1,
+      "servingUnit": "ounce",
+      "numberServings": 5,
+      "nutrition": {
+        "fat": 100,
+        "protein": 20,
+        "carbs": 1000,
+        "calories": 500
+      }
+    },
+    {
+      "id": 5,
+      "name": "pizza",
+      "servingSize": 5,
+      "servingUnit": "ounce",
+      "numberServings": 2,
+      "nutrition": {
+        "fat": 100,
+        "protein": 23,
+        "carbs": 1000,
+        "calories": 1012
+      }
+    },
+    {
+      "id": 6,
+      "name": "clam chowder",
+      "servingSize": 3,
+      "servingUnit": "ounce",
+      "numberServings": 1,
+      "nutrition": {
+        "fat": 23,
+        "protein": 34,
+        "carbs": 100,
+        "calories": 500
+      }
+    },
+    {
+      "id": 7,
+      "name": "brownie",
+      "servingSize": 2,
+      "servingUnit": "ounce",
+      "numberServings": 5,
+      "nutrition": {
+        "fat": 45,
+        "protein": 20,
+        "carbs": 40,
+        "calories": 300
+      }
+    },
+    {
+      "id": 8,
+      "name": "apple",
+      "servingSize": 1,
+      "servingUnit": "ounce",
+      "numberServings": 1,
+      "nutrition": {
+        "fat": 0,
+        "protein": 1,
+        "carbs": 40,
+        "calories": 30
+      }
     }
   ]
 }
