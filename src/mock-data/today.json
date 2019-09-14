@@ -1,0 +1,107 @@
+{
+  "foods": {
+    "breakfast": {
+      "items": [
+        {
+          "id": 1,
+          "name": "pancakes",
+          "servingSize": 3,
+          "servingUnit": "ounce",
+          "numberServings": 2,
+          "nutrition": {
+            "fat": 30,
+            "protein": 300,
+            "carbs": 0,
+            "calories": 500
+          }
+        },
+        {
+          "id": 2,
+          "name": "orange",
+          "servingSize": 1,
+          "servingUnit": "ounce",
+          "numberServings": 5,
+          "nutrition": {
+            "fat": 100,
+            "protein": 20,
+            "carbs": 1000,
+            "calories": 500
+          }
+        }
+      ]
+    },
+    "lunch": {
+      "items": [
+        {
+          "id": 3,
+          "name": "pizza",
+          "servingSize": 5,
+          "servingUnit": "ounce",
+          "numberServings": 2,
+          "nutrition": {
+            "fat": 100,
+            "protein": 23,
+            "carbs": 1000,
+            "calories": 1012
+          }
+        }
+      ]
+    },
+    "dinner": {
+      "items": [
+        {
+          "id": 4,
+          "name": "clam chowder",
+          "servingSize": 3,
+          "servingUnit": "ounce",
+          "numberServings": 1,
+          "nutrition": {
+            "fat": 23,
+            "protein": 34,
+            "carbs": 100,
+            "calories": 500
+          }
+        },
+        {
+          "id": 5,
+          "name": "brownie",
+          "servingSize": 2,
+          "servingUnit": "ounce",
+          "numberServings": 5,
+          "nutrition": {
+            "fat": 45,
+            "protein": 20,
+            "carbs": 40,
+            "calories": 300
+          }
+        }
+      ]
+    },
+    "snacks": {
+      "items": [
+        {
+          "id": 6,
+          "name": "apple",
+          "servingSize": 1,
+          "servingUnit": "ounce",
+          "numberServings": 1,
+          "nutrition": {
+            "fat": 0,
+            "protein": 1,
+            "carbs": 40,
+            "calories": 30
+          }
+        }
+      ]
+    }
+  },
+  "exercises": [
+    {
+      "id": 1,
+      "name": "push ups",
+      "repsPerSet": 10,
+      "numberOfSets": 5,
+      "duration": 1000
+    }
+  ]
+}

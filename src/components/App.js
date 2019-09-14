@@ -17,7 +17,7 @@ import Toast from "../components/Toast";
 
 import foodTemplatesData from "../mock-data/food-templates.json";
 import exerciseTemplatesData from "../mock-data/exercise-templates.json";
-import mockDays from "../mock-data/days.json";
+import mockToday from "../mock-data/today.json";
 import { newDayTemplate } from "../helpers/days";
 
 class App extends React.Component {
@@ -52,12 +52,14 @@ class App extends React.Component {
 
     // mimic a call to server for data.
     Promise.resolve().then(() => {
-      const { days } = this.state;
+      const { days, date } = this.state;
+
+      days[date] = mockToday;
 
       this.setState({
+        days,
         foodTemplates: foodTemplatesData.foods,
-        exerciseTemplates: exerciseTemplatesData.exercises,
-        days: { ...days, ...mockDays }
+        exerciseTemplates: exerciseTemplatesData.exercises
       });
     });
   }
