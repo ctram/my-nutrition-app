@@ -4,14 +4,7 @@ class FormAddGenericItem extends React.Component {
   constructor(props) {
     super(props);
 
-    this.refForm = React.createRef();
-
-    this.resetState = this.resetState.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  resetState() {
-    this.refForm.current && this.refForm.current.reset();
   }
 
   handleSubmit(e) {
@@ -27,9 +20,7 @@ class FormAddGenericItem extends React.Component {
       data[attr] = window.isNaN(num) ? value : num;
     }
 
-    this.props.onSubmit(data).then(() => {
-      this.resetState();
-    });
+    this.props.onSubmit(data)
   }
 
   render() {
@@ -40,7 +31,6 @@ class FormAddGenericItem extends React.Component {
         onChange={onChange}
         onSubmit={this.handleSubmit}
         id={formId}
-        ref={this.refForm}
       >
         {children}
         {saveButtonVisible && (
