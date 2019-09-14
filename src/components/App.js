@@ -62,6 +62,11 @@ class App extends React.Component {
     });
   }
 
+  /**
+   * Decrement or increments the current date, which determines what
+   * day UI is rendered.
+   * @param  {String} direction
+   */
   changeDate(direction) {
     const { date, days } = this.state;
     const m = moment(date);
@@ -85,6 +90,12 @@ class App extends React.Component {
     this.setState({ date: nextDate, days });
   }
 
+  /**
+   * Adds food consumed by user to state.
+   * @param {Object} food
+   * @param {String} mealType One of the meal types, e.g. 'breakfast', 'lunch', 'dinner'
+   * @return {Promise}
+   */
   addFoodToMeal(food, mealType) {
     const { foodTemplates, days, date } = this.state;
 
@@ -113,6 +124,11 @@ class App extends React.Component {
     });
   }
 
+  /**
+   * Adds exercise performed by user to state.
+   * @param {Object} exercise
+   * @return {Promise}
+   */
   addExerciseToDay(exercise) {
     const { exerciseTemplates, days, date } = this.state;
 
@@ -141,6 +157,10 @@ class App extends React.Component {
     });
   }
 
+  /**
+   * Add new food template to state.
+   * @param {Object} food
+   */
   addFoodTemplateToLibrary(food) {
     const {
       fat,
@@ -169,10 +189,12 @@ class App extends React.Component {
       toastMessage: `${newFood.name} added to library`
     });
     this.scrollToTop();
-
-    return Promise.resolve();
   }
 
+  /**
+   * Add new exercise template to state.
+   * @param {Object} exercise
+   */
   addExerciseTemplateToLibrary(exercise) {
     const { exerciseTemplates } = this.state;
     const { name } = exercise;
@@ -189,9 +211,14 @@ class App extends React.Component {
       toastMessage: `${exercise.name} added to library`
     });
     this.scrollToTop();
-    return Promise.resolve();
   }
 
+  /**
+   * Remove a generic item from state, e.g. a food item or exercise item.
+   * @param  {String} itemType Class of the item, e.g. 'exercise', or
+   *                            could be a specific meal type, 'breakfast'
+   * @param  {Object} item
+   */
   removeItem(itemType, item) {
     const { name, id } = item;
     const { days, date } = this.state;
@@ -229,6 +256,9 @@ class App extends React.Component {
     this.setState({ days });
   }
 
+  /**
+   * Force scroll back up to top of the page.
+   */
   scrollToTop() {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
   }
