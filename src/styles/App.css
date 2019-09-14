@@ -1,3 +1,17 @@
 .App {
   text-align: center;
 }
+
+@media (width >= 414px) {
+  .page-responsive-width {
+    width: 75%;
+    margin: auto;
+  }
+}
+
+@media (width >= 1024px) {
+  .page-responsive-width {
+    width: 50%;
+    margin: auto;
+  }
+}
