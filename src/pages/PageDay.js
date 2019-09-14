@@ -130,7 +130,7 @@ class PageDay extends React.Component {
     const { foods, exercises } = day;
     const { breakfast, lunch, dinner, snacks } = foods;
 
-    const defaultModal = (
+    const modalAddFoodToMeal = (
       <ModalAddFoodToMeal
         onClickClose={this.closeModal}
         onSubmitFoodToMeal={this.onAddFoodToMeal}
@@ -138,23 +138,25 @@ class PageDay extends React.Component {
       />
     );
 
+    const modalAddExerciseToDay = (
+      <ModalAddExerciseToDay
+        onSubmitExerciseToDay={this.onAddExerciseToDay}
+        onClickClose={this.closeModal}
+        exerciseTemplates={exerciseTemplates}
+      />
+    );
+
     let domModal = null;
 
     switch (modalToShow) {
       case "modalAddFoodToMeal":
-        domModal = defaultModal;
+        domModal = modalAddFoodToMeal;
         break;
       case "modalAddExerciseToDay":
-        domModal = (
-          <ModalAddExerciseToDay
-            onSubmitExerciseToDay={this.onAddExerciseToDay}
-            onClickClose={this.closeModal}
-            exerciseTemplates={exerciseTemplates}
-          />
-        );
+        domModal = modalAddExerciseToDay
         break;
       default:
-        domModal = defaultModal;
+        domModal = null;
     }
 
     return (
