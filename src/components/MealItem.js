@@ -7,7 +7,7 @@ function MealItem(props) {
   const { calories } = nutrition;
 
   const servingSizeUnitLabel = MEASURING_UNITS_LABELS[servingUnit];
-  const totalPortion = `${servingSize * numberServings} ${servingSizeUnitLabel}`
+  const totalPortion = `${(servingSize * numberServings).toLocaleString()} ${servingSizeUnitLabel}`
 
   const details = { ...nutrition };
   delete details['calories']
@@ -23,7 +23,7 @@ function MealItem(props) {
           {attr}
         </span>
         <span>
-          {numberServings * value} g
+          {(numberServings * value).toLocaleString()} g
         </span>
       </div>
     );
@@ -47,7 +47,7 @@ function MealItem(props) {
           Calories
         </span>
         <span>
-          {calories * numberServings}
+          {(calories * numberServings).toLocaleString()}
         </span>
       </div>
     </li>
