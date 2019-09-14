@@ -72,7 +72,7 @@ class ModalAddItem extends React.Component {
 ModalAddItem.propTypes = {
     onClickClose: PropTypes.func.isRequired,
     modalTitle: PropTypes.string.isRequired,
-    modalClassName: PropTypes.string.isRequired,
+    modalClassName: PropTypes.string,
     onSubmit: PropTypes.func.isRequired,
     formId: PropTypes.string,
     submitButtonLabel: PropTypes.string.isRequired,
@@ -80,7 +80,8 @@ ModalAddItem.propTypes = {
 };
 
 ModalAddItem.defaultProps = {
-  formId: ''
+  formId: '',
+  modalClassName: ''
 };
 
 export default ModalAddItem;
