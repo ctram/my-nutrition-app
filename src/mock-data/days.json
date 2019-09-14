@@ -4,6 +4,7 @@
       "breakfast": {
         "items": [
           {
+            "id": 1,
             "name": "fried chicken",
             "servingSize": 3,
             "servingUnit": "ounce",
@@ -16,6 +17,7 @@
             }
           },
           {
+            "id": 2,
             "name": "garlic bread",
             "servingSize": 1,
             "servingUnit": "ounce",
@@ -41,6 +43,7 @@
     },
     "exercises": [
       {
+        "id": 1,
         "name": "push ups",
         "repsPerSet": 10,
         "numberOfSets": 5,
