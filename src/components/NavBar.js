@@ -1,27 +1,51 @@
-import React from 'react';
+import React from "react";
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-function NavBar() {
+function NavBar(props) {
+  const {
+    history: {
+      location: { pathname }
+    }
+  } = props;
+
+  const paths = {
+    addFoodToLibrary: "/add-food-to-library",
+    addExerciseToLibrary: "/add-exercise-to-library"
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <Link to="/" className="navbar-brand">
         My Nutrition App
       </Link>
 
-      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+      >
         <span className="navbar-toggler-icon"></span>
       </button>
 
       <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <Link to="/add-food-to-library" className="nav-link">
+          <li
+            className={`nav-item ${
+              pathname === paths.addFoodToLibrary ? "active" : ""
+            }`}
+          >
+            <Link to={paths.addFoodToLibrary} className="nav-link">
               Add Food To Library
             </Link>
           </li>
-          <li className="nav-item">
-            <Link to="/add-exercise-to-library" className="nav-link">
+          <li
+            className={`nav-item ${
+              pathname === paths.addExerciseToLibrary ? "active" : ""
+            }`}
+          >
+            <Link to={paths.addExerciseToLibrary} className="nav-link">
               Add Exercise To Library
             </Link>
           </li>
@@ -31,4 +55,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default withRouter(NavBar);
