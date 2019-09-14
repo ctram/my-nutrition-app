@@ -33,7 +33,7 @@ class PageAddFoodToLibrary extends React.Component {
 
 
     return (
-      <div className="page-add-food-to-library">
+      <div className="page-add-food-to-library page-responsive-width">
         <Link to="/" className="btn btn-secondary">
           Back To Diary
         </Link>

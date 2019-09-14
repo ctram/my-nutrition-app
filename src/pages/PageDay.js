@@ -158,7 +158,7 @@ class PageDay extends React.Component {
     }
 
     return (
-      <div className="day">
+      <div className="page-day page-responsive-width">
         {domModal}
         <NavDate date={date} onChangeDate={onChangeDate} />
         <div className="py-3">
