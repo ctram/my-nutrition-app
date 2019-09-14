@@ -183,6 +183,13 @@ class PageDay extends React.Component {
           />
         </div>
         <div className="py-3">
+          <MealStats
+            name="snacks"
+            items={snacks.items}
+            onClickAddFood={this.showModalAddFoodToMeal}
+          />
+        </div>
+        <div className="py-3">
           <Exercises
             exercises={exercises}
             onClickAddExercise={this.showModalAddExerciseToDay}
