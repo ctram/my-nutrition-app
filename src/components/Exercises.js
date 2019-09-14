@@ -23,7 +23,7 @@ class Exercises extends React.Component {
       domItems = exercises.map(exercise => {
         return (
           <ExerciseItem
-            key={exercise.name}
+            key={exercise.id}
             exercise={exercise}
             onClickClose={this.handleClickCloseItem}
           />
