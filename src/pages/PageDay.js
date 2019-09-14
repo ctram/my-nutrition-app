@@ -101,16 +101,14 @@ class PageDay extends React.Component {
   onAddFoodToMeal(food) {
     const { mealTypeToAddItemTo } = this.state;
 
-    return this.props.onAddFoodToMeal(food, mealTypeToAddItemTo).then(() => {
+    this.props.onAddFoodToMeal(food, mealTypeToAddItemTo).then(() => {
       this.showModal(null);
-      return Promise.resolve();
     });
   }
 
   onAddExerciseToDay(exercise) {
-    return this.props.onAddExerciseToDay(exercise).then(() => {
+    this.props.onAddExerciseToDay(exercise).then(() => {
       this.showModal(null);
-      return Promise.resolve();
     });
   }
 
