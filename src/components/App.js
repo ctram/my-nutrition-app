@@ -196,7 +196,8 @@ class App extends React.Component {
     const { name, id } = item;
     const { days, date } = this.state;
 
-    const itemTypeLabel = itemType === "exercise" ? "Exercises" : capitalize.words(itemType);
+    const itemTypeLabel =
+      itemType === "exercise" ? "Exercises" : capitalize.words(itemType);
 
     if (
       !window.confirm(
