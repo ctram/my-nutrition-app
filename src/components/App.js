@@ -32,8 +32,6 @@ class App extends React.Component {
       date: moment().format(DATE_FORMAT)
     };
 
-    this.goToPageAddFoodToLibrary = this.goToPageAddFoodToLibrary.bind(this);
-
     this.addFoodToMeal = this.addFoodToMeal.bind(this);
     this.addExerciseToDay = this.addExerciseToDay.bind(this);
 
@@ -231,12 +229,6 @@ class App extends React.Component {
     this.setState({ days });
   }
 
-  goToPageAddFoodToLibrary() {
-    this.props.history.push("/add-food-to-library");
-    document.body.scrollTop = document.documentElement.scrollTop = 0;
-    this.setState({ toastMessage: "" });
-  }
-
   scrollToTop() {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
   }
@@ -282,7 +274,6 @@ class App extends React.Component {
                 <PageDay
                   foodTemplates={foodTemplates}
                   exerciseTemplates={exerciseTemplates}
-                  goToPageAddFoodToLibrary={this.goToPageAddFoodToLibrary}
                   days={days}
                   date={date}
                   onAddFoodToMeal={this.addFoodToMeal}
