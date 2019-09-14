@@ -15,3 +15,7 @@
     margin: auto;
   }
 }
+
+.close {
+  float: none;
+}

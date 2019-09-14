@@ -11,6 +11,7 @@ class MealStats extends React.Component {
     super(props);
 
     this.onClickAddFood = this.onClickAddFood.bind(this);
+    this.onClickCloseItem = this.onClickCloseItem.bind(this);
   }
 
   onClickAddFood(e) {
@@ -18,15 +19,20 @@ class MealStats extends React.Component {
     onClickAddFood(name);
   }
 
+  onClickCloseItem(item) {
+    const { name: mealName, onClickCloseItem } = this.props;
+    onClickCloseItem(mealName, item);
+  }
+
   render() {
-    const { name, items } = this.props;
+    const { name, items, onClickCloseItem } = this.props;
 
     let domItems = null;
     let domTotalMealStats = null;
 
     if (items && items.length > 0) {
       domItems = items.map((item, idx) => {
-        return <MealItem key={item.id || idx} item={item} />;
+        return <MealItem key={item.id || idx} item={item} onClickClose={this.onClickCloseItem} />;
       });
 
       domItems = <ul className="list-group list-group-flush">{domItems}</ul>;

@@ -123,7 +123,7 @@ class PageDay extends React.Component {
       exerciseTemplates
     } = this.state;
 
-    const { onChangeDate } = this.props;
+    const { onChangeDate, onRemoveItem } = this.props;
 
     const day = days[date];
 
@@ -166,6 +166,7 @@ class PageDay extends React.Component {
             name="breakfast"
             items={breakfast.items}
             onClickAddFood={this.showModalAddFoodToMeal}
+            onClickCloseItem={onRemoveItem}
           />
         </div>
         <div className="py-3">
@@ -173,6 +174,7 @@ class PageDay extends React.Component {
             name="lunch"
             items={lunch.items}
             onClickAddFood={this.showModalAddFoodToMeal}
+            onClickCloseItem={onRemoveItem}
           />
         </div>
         <div className="py-3">
@@ -180,12 +182,14 @@ class PageDay extends React.Component {
             name="dinner"
             items={dinner.items}
             onClickAddFood={this.showModalAddFoodToMeal}
+            onClickCloseItem={onRemoveItem}
           />
         </div>
         <div className="py-3">
           <MealStats
             name="snacks"
             items={snacks.items}
+            onClickCloseItem={onRemoveItem}
             onClickAddFood={this.showModalAddFoodToMeal}
           />
         </div>
@@ -193,6 +197,7 @@ class PageDay extends React.Component {
           <Exercises
             exercises={exercises}
             onClickAddExercise={this.showModalAddExerciseToDay}
+            onClickCloseItem={onRemoveItem}
           />
         </div>
       </div>

@@ -38,6 +38,7 @@ class App extends React.Component {
     this.addExerciseToDay = this.addExerciseToDay.bind(this);
     this.addExerciseTemplateToLibrary = this.addExerciseTemplateToLibrary.bind(this);
     this.changeDate = this.changeDate.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
   componentDidMount() {
@@ -88,8 +89,7 @@ class App extends React.Component {
       return foodTemplate.id === food.id;
     })
 
-    const newFood = { ...foodTemplate, numberServings: food.numberServings };
-    delete newFood.id
+    const newFood = { ...foodTemplate, numberServings: food.numberServings, id: Math.random() };
 
     let day = days[date];
 
@@ -113,8 +113,7 @@ class App extends React.Component {
       return exerciseTemplate.id === exercise.id;
     })
 
-    const newExercise = { ...exercise, name: exerciseTemplate.name };
-    delete newExercise.id;
+    const newExercise = { ...exercise, name: exerciseTemplate.name, id: Math.random() };
 
     let day = days[date];
 
@@ -168,6 +167,34 @@ class App extends React.Component {
     return Promise.resolve();
   }
 
+  removeItem(itemType, item) {
+    const { name, id } = item;
+    const { days, date } = this.state;
+
+    if (!window.confirm(`Are you sure you want to remove ${name}? This cannot be undone.`)) {
+      return;
+    }
+
+    const day = days[date];
+
+    let items = itemType === 'exercise' ? day.exercises : day.foods[itemType].items;
+
+
+    items = items.filter(item => {
+      return item.id !== id;
+    });
+
+    if (itemType === 'exercise') {
+      day.exercises = items;
+    } else {
+      day.foods[itemType].items = items;
+    }
+
+    days[date] = day;
+
+    this.setState({ days })
+  }
+
   goToPageAddFoodToLibrary() {
     this.props.history.push("/add-food-to-library");
     document.body.scrollTop = document.documentElement.scrollTop = 0;
@@ -215,6 +242,7 @@ class App extends React.Component {
                   onAddFoodToMeal={this.addFoodToMeal}
                   onAddExerciseToDay={this.addExerciseToDay}
                   onChangeDate={this.changeDate}
+                  onRemoveItem={this.removeItem}
                 />
               )}
             />
