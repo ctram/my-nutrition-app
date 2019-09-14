@@ -10,22 +10,22 @@ class MealStats extends React.Component {
   constructor(props) {
     super(props);
 
-    this.onClickAddFood = this.onClickAddFood.bind(this);
-    this.onClickCloseItem = this.onClickCloseItem.bind(this);
+    this.handleClickAddFood = this.handleClickAddFood.bind(this);
+    this.handleClickCloseItem = this.handleClickCloseItem.bind(this);
   }
 
-  onClickAddFood(e) {
+  handleClickAddFood(e) {
     const { onClickAddFood, name } = this.props;
     onClickAddFood(name);
   }
 
-  onClickCloseItem(item) {
+  handleClickCloseItem(item) {
     const { name: mealName, onClickCloseItem } = this.props;
     onClickCloseItem(mealName, item);
   }
 
   render() {
-    const { name, items, onClickCloseItem } = this.props;
+    const { name, items } = this.props;
 
     let domItems = null;
     let domTotalMealStats = null;
@@ -36,7 +36,7 @@ class MealStats extends React.Component {
           <MealItem
             key={item.id || idx}
             item={item}
-            onClickClose={this.onClickCloseItem}
+            onClickClose={this.handleClickCloseItem}
           />
         );
       });
@@ -80,7 +80,7 @@ class MealStats extends React.Component {
         {domItems}
         <div className="card-footer text-muted">
           <button
-            onClick={this.onClickAddFood}
+            onClick={this.handleClickAddFood}
             className="btn btn-primary"
             type="button"
           >

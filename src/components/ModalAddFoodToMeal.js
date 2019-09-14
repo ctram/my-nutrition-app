@@ -11,10 +11,10 @@ class ModalAddFoodToMeal extends React.Component {
       disableSaveButton: true
     };
 
-    this.onChange = this.onChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  onChange(e) {
+  handleChange(e) {
     const target = e.target;
     let { disableSaveButton } = this.state;
 
@@ -75,7 +75,7 @@ class ModalAddFoodToMeal extends React.Component {
           dataAttributeIds={dataAttributeIds}
           onSubmit={onSubmitFoodToMeal}
           saveButtonVisible={false}
-          onChange={this.onChange}
+          onChange={this.handleChange}
         >
           <div className="form-group">
             <label htmlFor="select-food">Food Name</label>

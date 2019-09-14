@@ -7,14 +7,14 @@ class FormAddGenericItem extends React.Component {
     this.refForm = React.createRef();
 
     this.resetState = this.resetState.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   resetState() {
     this.refForm.current && this.refForm.current.reset();
   }
 
-  onSubmit(e) {
+  handleSubmit(e) {
     e.preventDefault();
 
     const { dataAttributeIds } = this.props;
@@ -38,7 +38,7 @@ class FormAddGenericItem extends React.Component {
     return (
       <form
         onChange={onChange}
-        onSubmit={this.onSubmit}
+        onSubmit={this.handleSubmit}
         id={formId}
         ref={this.refForm}
       >
