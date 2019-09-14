@@ -3,11 +3,17 @@ import React from 'react';
 import '../styles/ExerciseItem.css';
 
 function ExerciseItem(props) {
-  const { name, repsPerSet, numberOfSets, duration } = props.exercise;
+  const { onClickClose } = props;
+  const { name, repsPerSet, numberOfSets, duration, id } = props.exercise;
 
   return (
     <li className="list-group-item exercise-item text-capitalize">
       <div>
+        <div className="text-right">
+          <button onClick={() => (onClickClose({ name, id }))} type="button" className="close">
+            <span>&times;</span>
+          </button>
+        </div>
         <div className="font-weight-bold exercise-item__name">
           {name}
         </div>

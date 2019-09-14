@@ -3,14 +3,24 @@ import React from 'react';
 import ExerciseItem from './ExerciseItem';
 
 class Exercises extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleClickCloseItem = this.handleClickCloseItem.bind(this);
+  }
+
+  handleClickCloseItem(item) {
+    this.props.onClickCloseItem('exercise', item);
+  }
+
   render() {
     const { onClickAddExercise, exercises } = this.props;
-    
+
     let domItems = null;
 
     if (exercises && exercises.length > 0) {
       domItems = exercises.map(exercise => {
-        return <ExerciseItem key={exercise.name} exercise={exercise} />;
+        return <ExerciseItem key={exercise.name} exercise={exercise} onClickClose={this.handleClickCloseItem} />;
       });
 
       domItems = (
