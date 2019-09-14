@@ -1,6 +1,6 @@
 # My Nutrition App
 
-Solely client-based app for tracking foods and exercises from day to day.
+Client-based app for tracking foods and exercises from day to day.
 
 ## Requirements
 
