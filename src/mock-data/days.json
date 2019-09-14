@@ -10,21 +10,21 @@
             "numberServings": 2,
             "nutrition": {
               "fat": 30,
-              "protein": 34,
-              "carbs": 324,
-              "calories": 12345
+              "protein": 300,
+              "carbs": 0,
+              "calories": 500
             }
           },
           {
             "name": "garlic bread",
-            "servingSize": 4,
+            "servingSize": 1,
             "servingUnit": "ounce",
-            "numberServings": 1,
+            "numberServings": 5,
             "nutrition": {
-              "fat": 300,
-              "protein": 343,
-              "carbs": 324,
-              "calories": 1233
+              "fat": 100,
+              "protein": 20,
+              "carbs": 1000,
+              "calories": 500
             }
           }
         ]
@@ -35,7 +35,9 @@
       "dinner": {
         "items": []
       },
-      "snacks": []
+      "snacks": {
+        "items": []
+      }
     },
     "exercises": [
       {
