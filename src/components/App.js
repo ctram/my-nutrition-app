@@ -8,7 +8,6 @@ import { Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router";
 
 import NavBar from "./NavBar";
-
 import PageDay from "../pages/PageDay";
 import PageAddFoodToLibrary from "../pages/PageAddFoodToLibrary";
 import PageAddExerciseToLibrary from "../pages/PageAddExerciseToLibrary";
@@ -33,13 +32,16 @@ class App extends React.Component {
       date: moment().format(DATE_FORMAT)
     };
 
-    this.addFoodTemplateToLibrary = this.addFoodTemplateToLibrary.bind(this);
     this.goToPageAddFoodToLibrary = this.goToPageAddFoodToLibrary.bind(this);
+
     this.addFoodToMeal = this.addFoodToMeal.bind(this);
     this.addExerciseToDay = this.addExerciseToDay.bind(this);
+
+    this.addFoodTemplateToLibrary = this.addFoodTemplateToLibrary.bind(this);
     this.addExerciseTemplateToLibrary = this.addExerciseTemplateToLibrary.bind(
       this
     );
+    
     this.changeDate = this.changeDate.bind(this);
     this.removeItem = this.removeItem.bind(this);
   }
