@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import ExerciseItem from './ExerciseItem';
+import ExerciseItem from "./ExerciseItem";
 
 class Exercises extends React.Component {
   constructor(props) {
@@ -10,7 +10,7 @@ class Exercises extends React.Component {
   }
 
   handleClickCloseItem(item) {
-    this.props.onClickCloseItem('exercise', item);
+    this.props.onClickCloseItem("exercise", item);
   }
 
   render() {
@@ -20,14 +20,16 @@ class Exercises extends React.Component {
 
     if (exercises && exercises.length > 0) {
       domItems = exercises.map(exercise => {
-        return <ExerciseItem key={exercise.name} exercise={exercise} onClickClose={this.handleClickCloseItem} />;
+        return (
+          <ExerciseItem
+            key={exercise.name}
+            exercise={exercise}
+            onClickClose={this.handleClickCloseItem}
+          />
+        );
       });
 
-      domItems = (
-        <ul className="list-group list-group-flush">
-          {domItems}
-        </ul>
-      );
+      domItems = <ul className="list-group list-group-flush">{domItems}</ul>;
     }
 
     return (
@@ -37,7 +39,11 @@ class Exercises extends React.Component {
         </div>
         {domItems}
         <div className="card-footer text-muted">
-          <button onClick={onClickAddExercise} className="btn btn-primary" type="button">
+          <button
+            onClick={onClickAddExercise}
+            className="btn btn-primary"
+            type="button"
+          >
             Add Exercise
           </button>
         </div>

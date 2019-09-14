@@ -9,28 +9,31 @@ import { MEASURING_UNITS_LABELS } from "../constants/constants";
 class PageAddFoodToLibrary extends React.Component {
   render() {
     const { onSubmitFoodTemplate } = this.props;
-    const formId ='form-add-food-to-library';
+    const formId = "form-add-food-to-library";
 
     const domServingUnitOptions = [
-      <option key={-1} value="">Select A Unit</option>
+      <option key={-1} value="">
+        Select A Unit
+      </option>
     ];
 
     for (const fullLabel in MEASURING_UNITS_LABELS) {
       domServingUnitOptions.push(
-        <option key={fullLabel} value={fullLabel}>{fullLabel}</option>
+        <option key={fullLabel} value={fullLabel}>
+          {fullLabel}
+        </option>
       );
     }
 
     const dataAttributeIds = {
-      name: 'input-food-name',
-      servingSize: 'input-food-serving-size',
-      servingUnit: 'select-food-serving-unit',
-      fat: 'input-food-fat',
-      carbs: 'input-food-carbs',
-      protein: 'input-food-protein',
-      calories: 'input-food-calories'
-    }
-
+      name: "input-food-name",
+      servingSize: "input-food-serving-size",
+      servingUnit: "select-food-serving-unit",
+      fat: "input-food-fat",
+      carbs: "input-food-carbs",
+      protein: "input-food-protein",
+      calories: "input-food-calories"
+    };
 
     return (
       <div className="page-add-food-to-library page-responsive-width">

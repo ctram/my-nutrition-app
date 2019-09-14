@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import App from './App';
+import App from "./App";
 
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router } from "react-router-dom";
 
 class Root extends React.Component {
   render() {

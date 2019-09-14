@@ -153,7 +153,7 @@ class PageDay extends React.Component {
         domModal = modalAddFoodToMeal;
         break;
       case "modalAddExerciseToDay":
-        domModal = modalAddExerciseToDay
+        domModal = modalAddExerciseToDay;
         break;
       default:
         domModal = null;

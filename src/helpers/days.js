@@ -1,17 +1,17 @@
 export function newDayTemplate() {
   return {
-    "foods": {
-      "breakfast": {
-        "items": []
+    foods: {
+      breakfast: {
+        items: []
       },
-      "lunch": {
-        "items": []
+      lunch: {
+        items: []
       },
-      "dinner": {
-        "items": []
+      dinner: {
+        items: []
       },
-      "snacks": {
-        "items": []
+      snacks: {
+        items: []
       }
     },
     exercises: []

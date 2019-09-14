@@ -27,17 +27,21 @@ class FormAddGenericItem extends React.Component {
       data[attr] = window.isNaN(num) ? value : num;
     }
 
-    this.props.onSubmit(data)
-      .then(() => {
-        this.resetState();
-      });
+    this.props.onSubmit(data).then(() => {
+      this.resetState();
+    });
   }
 
   render() {
-    const { children, saveButtonVisible, formId, onChange} = this.props;
+    const { children, saveButtonVisible, formId, onChange } = this.props;
 
     return (
-      <form onChange={onChange} onSubmit={this.onSubmit} id={formId} ref={this.refForm}>
+      <form
+        onChange={onChange}
+        onSubmit={this.onSubmit}
+        id={formId}
+        ref={this.refForm}
+      >
         {children}
         {saveButtonVisible && (
           <button className="btn btn-primary" type="submit">

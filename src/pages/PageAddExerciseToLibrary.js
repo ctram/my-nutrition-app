@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import FormAddGenericItem from '../components/FormAddGenericItem';
+import FormAddGenericItem from "../components/FormAddGenericItem";
 
 import { Link } from "react-router-dom";
 
@@ -9,7 +9,7 @@ class PageAddExerciseToLibrary extends React.Component {
     const { onSubmitExerciseTemplate } = this.props;
 
     const dataAttributeIds = {
-      name: 'input-exercise-name'
+      name: "input-exercise-name"
     };
 
     return (
@@ -26,7 +26,12 @@ class PageAddExerciseToLibrary extends React.Component {
           >
             <div className="form-group">
               <label htmlFor="input-name">Name</label>
-              <input data-attr-name="name" id={dataAttributeIds.name} type="text" className="form-control" />
+              <input
+                data-attr-name="name"
+                id={dataAttributeIds.name}
+                type="text"
+                className="form-control"
+              />
             </div>
           </FormAddGenericItem>
         </div>

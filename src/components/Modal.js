@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 class Modal extends React.Component {
   render() {
@@ -10,9 +10,18 @@ class Modal extends React.Component {
       domButtons = buttons.map((button, idx) => {
         const { label, cssClass, onClick, disabled, formId, type } = button;
 
-        return <button form={formId} disabled={disabled} key={idx} onClick={onClick} className={`btn ${cssClass} col my-1 mx-2`} type={type}>
-          {label}
-        </button>;
+        return (
+          <button
+            form={formId}
+            disabled={disabled}
+            key={idx}
+            onClick={onClick}
+            className={`btn ${cssClass} col my-1 mx-2`}
+            type={type}
+          >
+            {label}
+          </button>
+        );
       });
     }
 
@@ -26,20 +35,15 @@ class Modal extends React.Component {
                 <span>&times;</span>
               </button>
             </div>
-            <div className="modal-body">
-              {children}
-            </div>
+            <div className="modal-body">{children}</div>
             <div className="modal-footer">
-              <div className="row">
-                {domButtons}
-              </div>
+              <div className="row">{domButtons}</div>
             </div>
           </div>
         </div>
       </div>
     );
   }
-
 }
 
 export default Modal;

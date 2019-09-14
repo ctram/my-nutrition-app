@@ -18,14 +18,18 @@ class ModalAddExerciseToDay extends React.Component {
     const target = e.target;
     let { disableSaveButton } = this.state;
 
-    if (target.getAttribute('data-attr-name') === 'id') {
-      disableSaveButton = target.value === '';
+    if (target.getAttribute("data-attr-name") === "id") {
+      disableSaveButton = target.value === "";
       this.setState({ disableSaveButton });
     }
   }
 
   render() {
-    const { onClickClose, exerciseTemplates, onSubmitExerciseToDay } = this.props;
+    const {
+      onClickClose,
+      exerciseTemplates,
+      onSubmitExerciseToDay
+    } = this.props;
     const { disableSaveButton } = this.state;
 
     const formId = "form-add-exercise-to-day";
@@ -40,29 +44,25 @@ class ModalAddExerciseToDay extends React.Component {
       }
     ];
 
-    let domOptions = [<option key={-1} value={""} label="Select An Exercise" />];
+    let domOptions = [
+      <option key={-1} value={""} label="Select An Exercise" />
+    ];
 
     if (exerciseTemplates && exerciseTemplates.length > 0) {
-      const _exerciseTemplates = exerciseTemplates.map((exerciseTemplate) => {
+      const _exerciseTemplates = exerciseTemplates.map(exerciseTemplate => {
         const { name, id } = exerciseTemplate;
 
-        return (
-          <option
-            key={id}
-            value={id}
-            label={name}
-          />
-        );
+        return <option key={id} value={id} label={name} />;
       });
 
       domOptions = domOptions.concat(_exerciseTemplates);
     }
 
     const dataAttributeIds = {
-      id: 'select-exercise-id',
-      repsPerSet: 'input-reps-per-set',
-      numberOfSets: 'input-number-of-sets',
-      duration: 'input-duration'
+      id: "select-exercise-id",
+      repsPerSet: "input-reps-per-set",
+      numberOfSets: "input-number-of-sets",
+      duration: "input-duration"
     };
 
     return (
@@ -92,7 +92,9 @@ class ModalAddExerciseToDay extends React.Component {
             </select>
           </div>
           <div className="form-group">
-            <label htmlFor={dataAttributeIds.duration}>Duration (minutes)</label>
+            <label htmlFor={dataAttributeIds.duration}>
+              Duration (minutes)
+            </label>
             <input
               defaultValue="0"
               data-attr-name="duration"
@@ -116,7 +118,9 @@ class ModalAddExerciseToDay extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor={dataAttributeIds.numberOfSets}>Number Of Sets</label>
+            <label htmlFor={dataAttributeIds.numberOfSets}>
+              Number Of Sets
+            </label>
             <input
               defaultValue="0"
               data-attr-name="numberOfSets"
