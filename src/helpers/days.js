@@ -10,7 +10,9 @@ export function newDayTemplate() {
       "dinner": {
         "items": []
       },
-      "snacks": []
+      "snacks": {
+        "items": []
+      }
     },
     exercises: []
   };
