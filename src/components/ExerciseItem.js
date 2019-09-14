@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import "../styles/ExerciseItem.css";
 
@@ -38,5 +39,9 @@ function ExerciseItem(props) {
     </li>
   );
 }
+
+ExerciseItem.propTypes = {
+  onClickClose: PropTypes.func.isRequired
+};
 
 export default ExerciseItem;

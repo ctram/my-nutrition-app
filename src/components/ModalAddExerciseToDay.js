@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import ModalAddItem from "./ModalAddItem";
 
@@ -85,5 +86,15 @@ function ModalAddExerciseToDay(props) {
     </ModalAddItem>
   );
 }
+
+ModalAddExerciseToDay.propTypes = {
+  exerciseTemplates: PropTypes.array,
+  onClickClose: PropTypes.func.isRequired,
+  onSubmitExerciseToDay: PropTypes.func.isRequired
+};
+
+ModalAddExerciseToDay.defaultProps = {
+  exerciseTemplates: []
+};
 
 export default ModalAddExerciseToDay;

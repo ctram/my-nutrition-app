@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import "../styles/MealStats.css";
 
@@ -91,5 +92,16 @@ class MealStats extends React.Component {
     );
   }
 }
+
+MealStats.propTypes = {
+  name: PropTypes.string.isRequired,
+  items: PropTypes.array,
+  onClickCloseItem: PropTypes.func.isRequired,
+  onClickAddFood: PropTypes.func.isRequired
+};
+
+MealStats.defaultProps = {
+  items: []
+};
 
 export default MealStats;

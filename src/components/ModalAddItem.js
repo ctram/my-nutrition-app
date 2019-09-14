@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import Modal from "./Modal";
 import FormAddGenericItem from "./FormAddGenericItem";
@@ -67,5 +68,19 @@ class ModalAddItem extends React.Component {
     );
   }
 }
+
+ModalAddItem.propTypes = {
+    onClickClose: PropTypes.func.isRequired,
+    modalTitle: PropTypes.string.isRequired,
+    modalClassName: PropTypes.string.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    formId: PropTypes.string,
+    submitButtonLabel: PropTypes.string.isRequired,
+    dataAttributeIds: PropTypes.object.isRequired
+};
+
+ModalAddItem.defaultProps = {
+  formId: ''
+};
 
 export default ModalAddItem;

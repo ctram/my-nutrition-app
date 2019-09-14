@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import ExerciseItem from "./ExerciseItem";
 
@@ -51,5 +52,15 @@ class Exercises extends React.Component {
     );
   }
 }
+
+Exercises.propTypes = {
+  exercises: PropTypes.array,
+  onClickAddExercise: PropTypes.func.isRequired,
+  onClickCloseItem: PropTypes.func.isRequired
+};
+
+Exercises.defaultProps = {
+  exercises: []
+};
 
 export default Exercises;

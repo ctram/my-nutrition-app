@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import { MEASURING_UNITS_LABELS } from "../constants/constants";
 
@@ -60,5 +61,10 @@ function MealItem(props) {
     </li>
   );
 }
+
+MealItem.propTypes = {
+  item: PropTypes.object.isRequired,
+  onClickClose: PropTypes.func.isRequired
+};
 
 export default MealItem;

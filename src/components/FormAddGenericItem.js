@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 class FormAddGenericItem extends React.Component {
   constructor(props) {
@@ -43,7 +44,16 @@ class FormAddGenericItem extends React.Component {
   }
 }
 
+FormAddGenericItem.propTypes = {
+  formId: PropTypes.string,
+  dataAttributeIds: PropTypes.object.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  saveButtonVisible: PropTypes.bool,
+  onChange: PropTypes.func
+};
+
 FormAddGenericItem.defaultProps = {
+  formId: '',
   saveButtonVisible: true,
   onChange: () => {}
 };

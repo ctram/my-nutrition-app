@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import ModalAddItem from "./ModalAddItem";
 
@@ -63,6 +64,16 @@ function ModalAddFoodToMeal(props) {
       </div>
     </ModalAddItem>
   );
+}
+
+ModalAddFoodToMeal.propTypes = {
+  onClickClose: PropTypes.func.isRequired,
+  foodTemplates: PropTypes.array,
+  onSubmitFoodToMeal: PropTypes.func.isRequired
+};
+
+ModalAddFoodToMeal.defaultProps = {
+  foodTemplates: []
 }
 
 export default ModalAddFoodToMeal;

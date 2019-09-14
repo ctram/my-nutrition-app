@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from 'prop-types';
+
 import moment from "moment";
 
 import "../styles/NavDate.css";
@@ -33,5 +35,10 @@ function NavDate(props) {
     </div>
   );
 }
+
+NavDate.propTypes = {
+  date: PropTypes.string.isRequired,
+  onChangeDate: PropTypes.func.isRequired
+};
 
 export default NavDate;

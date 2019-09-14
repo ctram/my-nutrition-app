@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 import "../styles/Toast.css";
 
@@ -13,5 +14,14 @@ function Toast(props) {
     </div>
   );
 }
+
+Toast.propTypes = {
+  message: PropTypes.string.isRequired,
+  colorType: PropTypes.string
+};
+
+Toast.defaultProps = {
+  colorType: 'success'
+};
 
 export default Toast;
