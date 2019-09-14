@@ -24,15 +24,15 @@ function ExerciseItem(props) {
         <div className="row">
           <div className="col">
             <span className="mr-3">Reps:</span>
-            <span>{repsPerSet}</span>
+            <span>{repsPerSet.toLocaleString()}</span>
           </div>
           <div className="col">
             <span className="mr-3">Sets:</span>
-            <span>{numberOfSets}</span>
+            <span>{numberOfSets.toLocaleString()}</span>
           </div>
           <div className="col">
             <span className="mr-3">Minutes:</span>
-            <span>{duration}</span>
+            <span>{duration.toLocaleString()}</span>
           </div>
         </div>
       </div>
