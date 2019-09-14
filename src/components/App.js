@@ -2,10 +2,12 @@ import React from "react";
 import moment from "moment";
 import capitalize from "capitalize";
 
+import "../styles/App.css";
+
 import { DATE_FORMAT } from "../constants/constants";
 
-import { Route, Switch } from "react-router-dom";
 import { withRouter } from "react-router";
+import { Route, Switch } from "react-router-dom";
 
 import NavBar from "./NavBar";
 import PageDay from "../pages/PageDay";
@@ -17,8 +19,6 @@ import foodTemplatesData from "../mock-data/food-templates.json";
 import exerciseTemplatesData from "../mock-data/exercise-templates.json";
 import mockDays from "../mock-data/days.json";
 import { newDayTemplate } from "../helpers/days";
-
-import "../styles/App.css";
 
 class App extends React.Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class App extends React.Component {
     this.addExerciseTemplateToLibrary = this.addExerciseTemplateToLibrary.bind(
       this
     );
-    
+
     this.changeDate = this.changeDate.bind(this);
     this.removeItem = this.removeItem.bind(this);
   }
