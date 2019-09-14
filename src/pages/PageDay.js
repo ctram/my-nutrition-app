@@ -1,5 +1,4 @@
 import React from "react";
-import moment from "moment";
 
 import NavDate from "../components/NavDate";
 import MealStats from "../components/MealStats";
@@ -24,8 +23,6 @@ class PageDay extends React.Component {
       exerciseTemplates,
       days,
       date,
-      modalAddFoodVisible: false,
-      modalAddExerciseVisible: false,
       mealTypeToAddItemTo: null,
       modalToShow: null
     };
@@ -34,11 +31,11 @@ class PageDay extends React.Component {
 
     this.showModal = this.showModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+
     this.showModalAddFoodToMeal = this.showModalAddFoodToMeal.bind(this);
-    this.goToPageAddFoodToLibrary = this.goToPageAddFoodToLibrary.bind(this);
-    this.onClickAddFoodToMeal = this.onClickAddFoodToMeal.bind(this);
-    this.changeDate = this.changeDate.bind(this);
     this.showModalAddExerciseToDay = this.showModalAddExerciseToDay.bind(this);
+
+    this.onAddFoodToMeal = this.onAddFoodToMeal.bind(this);
     this.onAddExerciseToDay = this.onAddExerciseToDay.bind(this);
   }
 
@@ -97,65 +94,36 @@ class PageDay extends React.Component {
     this.showModal("modalAddExerciseToDay");
   }
 
-  goToPageAddFoodToLibrary() {
-    this.showModal(null);
-    this.props.goToPageAddFoodToLibrary();
-  }
-
   closeModal() {
     this.showModal(null);
   }
 
-  onClickAddFoodToMeal(food, mealType) {
-    const { onAddFoodToMeal } = this.props;
+  onAddFoodToMeal(food) {
+    const { mealTypeToAddItemTo } = this.state;
 
-    return onAddFoodToMeal(food, mealType).then(() => {
+    return this.props.onAddFoodToMeal(food, mealTypeToAddItemTo).then(() => {
       this.showModal(null);
       return Promise.resolve();
     });
   }
 
   onAddExerciseToDay(exercise) {
-    const { onAddExerciseToDay } = this.props;
-
-    return onAddExerciseToDay(exercise).then(() => {
+    return this.props.onAddExerciseToDay(exercise).then(() => {
       this.showModal(null);
       return Promise.resolve();
     });
-  }
-
-  changeDate(direction) {
-    const { date, days } = this.state;
-    const m = moment(date);
-
-    if (direction === "prev") {
-      m.subtract(1, "day");
-    } else if (direction === "next") {
-      m.add(1, "day");
-    } else {
-      console.error(
-        `'${direction}' is not an expected direction; was expecting 'prev' or 'next'`
-      );
-    }
-
-    const nextDate = m.format("YYYY-MM-DD");
-
-    if (!days[nextDate]) {
-      days[nextDate] = newDayTemplate();
-    }
-
-    this.setState({ date: nextDate, days });
   }
 
   render() {
     const {
       days,
       date,
-      mealTypeToAddItemTo,
       modalToShow,
       foodTemplates,
       exerciseTemplates
     } = this.state;
+
+    const { onChangeDate } = this.props;
 
     const day = days[date];
 
@@ -164,11 +132,8 @@ class PageDay extends React.Component {
 
     const defaultModal = (
       <ModalAddFoodToMeal
-        date={date}
-        mealType={mealTypeToAddItemTo}
         onClickClose={this.closeModal}
-        onClickAddFoodToMeal={this.onClickAddFoodToMeal}
-        onClickAddFoodToLibrary={this.goToPageAddFoodToLibrary}
+        onSubmitFoodToMeal={this.onAddFoodToMeal}
         foodTemplates={foodTemplates}
       />
     );
@@ -182,8 +147,7 @@ class PageDay extends React.Component {
       case "modalAddExerciseToDay":
         domModal = (
           <ModalAddExerciseToDay
-            onAddExerciseToDay={this.onAddExerciseToDay}
-            onClickAddExerciseToLibrary={this.goToPageAddExerciseToLibrary}
+            onSubmitExerciseToDay={this.onAddExerciseToDay}
             onClickClose={this.closeModal}
             exerciseTemplates={exerciseTemplates}
           />
@@ -196,7 +160,7 @@ class PageDay extends React.Component {
     return (
       <div className="day">
         {domModal}
-        <NavDate date={date} onChangeDate={this.changeDate} />
+        <NavDate date={date} onChangeDate={onChangeDate} />
         <div className="py-3">
           <MealStats
             name="breakfast"

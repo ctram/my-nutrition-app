@@ -1,6 +1,6 @@
 import React from "react";
 
-import FormAddGenericItemToLibrary from "../components/FormAddGenericItemToLibrary";
+import FormAddGenericItem from "../components/FormAddGenericItem";
 
 import { Link } from "react-router-dom";
 
@@ -9,8 +9,11 @@ import { MEASURING_UNITS_LABELS } from "../constants/constants";
 class PageAddFoodToLibrary extends React.Component {
   render() {
     const { onSubmitFoodTemplate } = this.props;
+    const formId ='form-add-food-to-library';
 
-    const domServingUnitOptions = [];
+    const domServingUnitOptions = [
+      <option key={-1} value="">Select A Unit</option>
+    ];
 
     for (const fullLabel in MEASURING_UNITS_LABELS) {
       domServingUnitOptions.push(
@@ -18,17 +21,16 @@ class PageAddFoodToLibrary extends React.Component {
       );
     }
 
-    const dataAttributes = {
-      name: '',
-      servingSize: 1,
-      servingUnit: 'ounce',
-      fat: 0,
-      carbs: 0,
-      protein: 0,
-      calories: 0
+    const dataAttributeIds = {
+      name: 'input-food-name',
+      servingSize: 'input-food-serving-size',
+      servingUnit: 'select-food-serving-unit',
+      fat: 'input-food-fat',
+      carbs: 'input-food-carbs',
+      protein: 'input-food-protein',
+      calories: 'input-food-calories'
     }
 
-    const { name, servingSize, servingUnit, fat, carbs, protein, calories } = dataAttributes;
 
     return (
       <div className="page-add-food-to-library">
@@ -38,15 +40,16 @@ class PageAddFoodToLibrary extends React.Component {
 
         <div className="my-5">
           <h1 className="mb-5">Add Food To Library</h1>
-          <FormAddGenericItemToLibrary
+          <FormAddGenericItem
+            formId={formId}
             onSubmit={onSubmitFoodTemplate}
-            dataAttributes={dataAttributes}
+            dataAttributeIds={dataAttributeIds}
           >
             <div className="form-group">
-              <label htmlFor="input-food-name">Name</label>
+              <label htmlFor={dataAttributeIds.name}>Name</label>
               <input
-                defaultValue={name}
-                id="input-food-name"
+                defaultValue=""
+                id={dataAttributeIds.name}
                 data-attr-name="name"
                 type="text"
                 className="form-control"
@@ -54,21 +57,22 @@ class PageAddFoodToLibrary extends React.Component {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="select-food-serving-unit">Serving Unit</label>
+              <label htmlFor={dataAttributeIds.servingUnit}>Serving Unit</label>
               <select
-                defaultValue={servingUnit}
-                id="select-food-serving-unit"
+                defaultValue=""
+                id={dataAttributeIds.servingUnit}
                 data-attr-name="servingUnit"
                 className="form-control text-capitalize"
+                required
               >
                 {domServingUnitOptions}
               </select>
             </div>
             <div className="form-group">
-              <label htmlFor="input-food-serving-size">Serving Size</label>
+              <label htmlFor={dataAttributeIds.servingSize}>Serving Size</label>
               <input
-                defaultValue={servingSize}
-                id="input-food-serving-size"
+                defaultValue="1"
+                id={dataAttributeIds.servingSize}
                 data-attr-name="servingSize"
                 type="number"
                 min="1"
@@ -80,10 +84,10 @@ class PageAddFoodToLibrary extends React.Component {
             <fieldset>
               <legend>Nutrition Per Serving</legend>
               <div className="form-group">
-                <label htmlFor="input-fat">Fat (g)</label>
+                <label htmlFor={dataAttributeIds.fat}>Fat (g)</label>
                 <input
-                  defaultValue={fat}
-                  id="input-fat"
+                  defaultValue="0"
+                  id={dataAttributeIds.fat}
                   data-attr-name="fat"
                   type="number"
                   min="0"
@@ -91,11 +95,11 @@ class PageAddFoodToLibrary extends React.Component {
                   required
                 />
               </div>
-              <div className="form-group">
-                <label htmlFor="input-protein">Protein (g)</label>
+              <div className="f`orm-group">
+                <label htmlFor={dataAttributeIds.protein}>Protein (g)</label>
                 <input
-                  defaultValue={protein}
-                  id="input-protein"
+                  defaultValue="0"
+                  id={dataAttributeIds.protein}
                   data-attr-name="protein"
                   type="number"
                   min="0"
@@ -104,10 +108,10 @@ class PageAddFoodToLibrary extends React.Component {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="input-carbs">Carbs (g)</label>
+                <label htmlFor={dataAttributeIds.carbs}>Carbs (g)</label>
                 <input
-                  defaultValue={carbs}
-                  id="input-carbs"
+                  defaultValue="0"
+                  id={dataAttributeIds.carbs}
                   data-attr-name="carbs"
                   type="number"
                   min="0"
@@ -116,10 +120,10 @@ class PageAddFoodToLibrary extends React.Component {
                 />
               </div>
               <div className="form-group">
-                <label htmlFor="input-calories">Calories (g)</label>
+                <label htmlFor={dataAttributeIds.calories}>Calories (g)</label>
                 <input
-                  defaultValue={calories}
-                  id="input-calories"
+                  defaultValue="0"
+                  id={dataAttributeIds.calories}
                   data-attr-name="calories"
                   type="number"
                   min="0"
@@ -128,7 +132,7 @@ class PageAddFoodToLibrary extends React.Component {
                 />
               </div>
             </fieldset>
-          </FormAddGenericItemToLibrary>
+          </FormAddGenericItem>
         </div>
       </div>
     );

@@ -35,6 +35,8 @@ class MealStats extends React.Component {
         </ul>
       );
 
+
+
       // we can also do this summation in the map() above, but let's keep
       // code sepearate for ease of reading.
       const { fat, protein, carbs, calories } = sumItemStats(items);

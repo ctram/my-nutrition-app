@@ -6,10 +6,10 @@
       "servingSize": 3,
       "servingUnit": "ounce",
       "nutrition": {
-        "fat": 30,
-        "protein": 34,
-        "carbs": 324,
-        "calories": 12345
+        "fat": 1,
+        "protein": 2,
+        "carbs": 3,
+        "calories": 4
       }
     },
     {

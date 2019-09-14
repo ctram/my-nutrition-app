@@ -1,89 +1,46 @@
 import React from "react";
 
 import Modal from "./Modal";
+import FormAddGenericItem from "./FormAddGenericItem";
 
 class ModalAddFoodToMeal extends React.Component {
   constructor(props) {
     super(props);
 
-    const { foodTemplates } = props;
-
     this.state = {
-      foodTemplates,
-      selectedFoodTemplateId: "",
-      numberServings: 1
+      disableSaveButton: true
     };
 
-    this.onChangeSelect = this.onChangeSelect.bind(this);
-    this.onChangeNumberServings = this.onChangeNumberServings.bind(this);
-    this.onClickAddFoodToMeal = this.onClickAddFoodToMeal.bind(this);
-    this.onClickAddFoodToLibrary = this.onClickAddFoodToLibrary.bind(this);
-    this.resetState = this.resetState.bind(this);
-    this.onClickClose = this.onClickClose.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
-    const { foodTemplates } = this.props;
+  onChange(e) {
+    const target = e.target;
+    let { disableSaveButton } = this.state;
 
-    if (prevProps.foodTemplates !== foodTemplates) {
-      this.setState({ foodTemplates });
+    if (target.getAttribute('data-attr-name') === 'id') {
+      disableSaveButton = target.value === '';
+      this.setState({ disableSaveButton });
     }
   }
 
-  onChangeSelect(e) {
-    this.setState({ selectedFoodTemplateId: e.target.value || null });
-  }
-
-  onChangeNumberServings(e) {
-    this.setState({ numberServings: e.target.value });
-  }
-
-  onClickAddFoodToMeal() {
-    const {
-      foodTemplates,
-      selectedFoodTemplateId,
-      numberServings
-    } = this.state;
-    const { onClickAddFoodToMeal, mealType } = this.props;
-
-    const foodTemplate = foodTemplates.find(foodTemplate => {
-      return String(foodTemplate.id) === selectedFoodTemplateId;
-    });
-
-    const { name, servingSize, servingUnit, nutrition } = foodTemplate;
-
-    const foodItem = {
-      name,
-      servingSize,
-      servingUnit,
-      nutrition,
-      numberServings
-    };
-
-    onClickAddFoodToMeal(foodItem, mealType).then(() => {
-      this.resetState();
-    });
-  }
-
-  onClickAddFoodToLibrary() {
-    this.props.onClickAddFoodToLibrary();
-  }
-
-  onClickClose() {
-    this.resetState();
-    this.props.onClickClose();
-  }
-
-  resetState() {
-    this.setState({ selectedFoodTemplateId: "", numberServings: 1 });
-  }
-
   render() {
-    const {
-      selectedFoodTemplateId,
-      foodTemplates,
-      numberServings
-    } = this.state;
+    const { onClickClose, foodTemplates, onSubmitFoodToMeal } = this.props;
+    const { disableSaveButton } = this.state;
+
+
+
+    const formId = "form-add-food-to-meal";
+
+    const buttons = [
+      {
+        formId,
+        label: "Add Food To Meal",
+        cssClass: "btn-primary",
+        type: "submit",
+        disabled: disableSaveButton
+      }
+    ];
 
     let domOptions = [<option key={-1} value={""} label="Select A Food" />];
 
@@ -103,58 +60,50 @@ class ModalAddFoodToMeal extends React.Component {
       domOptions = domOptions.concat(_foodTemplates);
     }
 
-    const formId = "form-add-food-to-meal";
-
-    const buttons = [
-      {
-        label: "Add Food To Meal",
-        cssClass: "btn-primary",
-        disabled: !selectedFoodTemplateId,
-        form: formId,
-        onClick: this.onClickAddFoodToMeal
-      },
-      {
-        label: "Add New Food To Library",
-        cssClass: "btn-secondary",
-        form: formId,
-        onClick: this.onClickAddFoodToLibrary
-      }
-    ];
+    const dataAttributeIds = {
+      id: 'select-food-id',
+      numberServings: 'input-number-servings'
+    };
 
     return (
       <Modal
-        title="Add Food To Meal"
-        id="modal-add-food-to-meal"
-        onClickClose={this.onClickClose}
+        className="modal-add-food-to-meal"
         buttons={buttons}
+        title="Add Food To Meal"
+        onClickClose={onClickClose}
       >
-        <form id={formId}>
+        <FormAddGenericItem
+          formId={formId}
+          dataAttributeIds={dataAttributeIds}
+          onSubmit={onSubmitFoodToMeal}
+          saveButtonVisible={false}
+          onChange={this.onChange}
+        >
           <div className="form-group">
-            <label htmlFor="select-food">Name</label>
+            <label htmlFor="select-food">Food Name</label>
             <select
-              onChange={this.onChangeSelect}
-              value={selectedFoodTemplateId}
-              id="select-food"
+              data-attr-name="id"
+              defaultValue=""
+              id={dataAttributeIds.id}
               className="form-control text-capitalize"
+              required
             >
               {domOptions}
             </select>
           </div>
 
-          {selectedFoodTemplateId && (
-            <div className="form-group">
-              <label htmlFor="input-number-servings">Number of Servings</label>
-              <input
-                onChange={this.onChangeNumberServings}
-                value={numberServings}
-                min="1"
-                id="input-number-servings"
-                type="number"
-                className="form-control"
-              />
-            </div>
-          )}
-        </form>
+          <div className="form-group">
+            <label htmlFor="input-number-servings">Number of Servings</label>
+            <input
+              data-attr-name="numberServings"
+              defaultValue="1"
+              min="1"
+              id={dataAttributeIds.numberServings}
+              type="number"
+              className="form-control"
+            />
+          </div>
+        </FormAddGenericItem>
       </Modal>
     );
   }

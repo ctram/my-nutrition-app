@@ -15,8 +15,8 @@ import Toast from "../components/Toast";
 
 import foodTemplatesData from "../mock-data/food-templates.json";
 import exerciseTemplatesData from "../mock-data/exercise-templates.json";
-
 import mockDays from "../mock-data/days.json";
+import { newDayTemplate } from "../helpers/days";
 
 import "../styles/App.css";
 
@@ -37,6 +37,7 @@ class App extends React.Component {
     this.addFoodToMeal = this.addFoodToMeal.bind(this);
     this.addExerciseToDay = this.addExerciseToDay.bind(this);
     this.addExerciseTemplateToLibrary = this.addExerciseTemplateToLibrary.bind(this);
+    this.changeDate = this.changeDate.bind(this);
   }
 
   componentDidMount() {
@@ -57,6 +58,79 @@ class App extends React.Component {
     });
   }
 
+  changeDate(direction) {
+    const { date, days } = this.state;
+    const m = moment(date);
+
+    if (direction === "prev") {
+      m.subtract(1, "day");
+    } else if (direction === "next") {
+      m.add(1, "day");
+    } else {
+      console.error(
+        `'${direction}' is not an expected direction; was expecting 'prev' or 'next'`
+      );
+    }
+
+    const nextDate = m.format("YYYY-MM-DD");
+
+    if (!days[nextDate]) {
+      days[nextDate] = newDayTemplate();
+    }
+
+    this.setState({ date: nextDate, days });
+  }
+
+  addFoodToMeal(food, mealType) {
+    const { foodTemplates, days, date } = this.state;
+
+    const foodTemplate = foodTemplates.find(foodTemplate => {
+      return foodTemplate.id === food.id;
+    })
+
+    const newFood = { ...foodTemplate, numberServings: food.numberServings };
+    delete newFood.id
+
+    let day = days[date];
+
+    day.foods[mealType].items.push(newFood);
+    days[date] = day;
+
+    const toastMessage = `${newFood.name} added to ${mealType}`;
+
+    return new Promise(resolve => {
+      this.setState({ days, toastMessage }, () => {
+        this.scrollToTop();
+        return resolve();
+      });
+    });
+  }
+
+  addExerciseToDay(exercise) {
+    const { exerciseTemplates, days, date } = this.state;
+
+    const exerciseTemplate = exerciseTemplates.find(exerciseTemplate => {
+      return exerciseTemplate.id === exercise.id;
+    })
+
+    const newExercise = { ...exercise, name: exerciseTemplate.name };
+    delete newExercise.id;
+
+    let day = days[date];
+
+    day.exercises.push(newExercise);
+    days[date] = day;
+
+    const toastMessage = `${newExercise.name} exercise added`;
+
+    return new Promise(resolve => {
+      this.setState({ days, toastMessage }, () => {
+        this.scrollToTop();
+        return resolve();
+      });
+    });
+  }
+
   addFoodTemplateToLibrary(food) {
     const { fat, protein, carbs, calories, name, servingUnit, servingSize } = food;
     const nutrition = { fat, protein, carbs, calories };
@@ -71,42 +145,8 @@ class App extends React.Component {
       toastMessage: `${newFood.name} added to library`
     });
     this.scrollToTop();
-  }
 
-  addFoodToMeal(food, mealType) {
-    const { days, date } = this.state;
-
-    let day = days[date];
-
-    day.foods[mealType].items.push(food);
-    days[date] = day;
-
-    const toastMessage = `${food.name} added to ${mealType}`;
-
-    return new Promise(resolve => {
-      this.setState({ days, toastMessage }, () => {
-        this.scrollToTop();
-        return resolve();
-      });
-    });
-  }
-
-  addExerciseToDay(exercise) {
-    const { days, date } = this.state;
-
-    let day = days[date];
-
-    day.exercises.push(exercise);
-    days[date] = day;
-
-    const toastMessage = `${exercise.name} exercise added`;
-
-    return new Promise(resolve => {
-      this.setState({ days, toastMessage }, () => {
-        this.scrollToTop();
-        return resolve();
-      });
-    });
+    return Promise.resolve();
   }
 
   addExerciseTemplateToLibrary(exercise) {
@@ -125,6 +165,7 @@ class App extends React.Component {
       toastMessage: `${exercise.name} added to library`
     });
     this.scrollToTop();
+    return Promise.resolve();
   }
 
   goToPageAddFoodToLibrary() {
@@ -173,6 +214,7 @@ class App extends React.Component {
                   date={date}
                   onAddFoodToMeal={this.addFoodToMeal}
                   onAddExerciseToDay={this.addExerciseToDay}
+                  onChangeDate={this.changeDate}
                 />
               )}
             />

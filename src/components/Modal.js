@@ -1,18 +1,8 @@
 import React from 'react';
 
 class Modal extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.onClickClose = this.onClickClose.bind(this);
-  }
-
-  onClickClose() {
-    this.props.onClickClose();
-  }
-
   render() {
-    const { buttons, title, children, id, onClickClose } = this.props;
+    const { buttons, title, children, onClickClose } = this.props;
 
     let domButtons = null;
 
@@ -32,7 +22,7 @@ class Modal extends React.Component {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title">{title}</h5>
-              <button onClick={this.onClickClose} type="button" className="close">
+              <button onClick={onClickClose} type="button" className="close">
                 <span>&times;</span>
               </button>
             </div>

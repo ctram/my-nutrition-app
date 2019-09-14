@@ -1,67 +1,102 @@
 import React from "react";
 
-import ModalAddGenericItemToCollection from "./ModalAddGenericItemToCollection";
+import Modal from "./Modal";
+import FormAddGenericItem from "./FormAddGenericItem";
 
 class ModalAddExerciseToDay extends React.Component {
   constructor(props) {
     super(props);
 
-    const { exerciseTemplates } = props;
-
     this.state = {
-      exerciseTemplates
+      disableSaveButton: true
     };
+
+    this.onChange = this.onChange.bind(this);
+  }
+
+  onChange(e) {
+    const target = e.target;
+    let { disableSaveButton } = this.state;
+
+    if (target.getAttribute('data-attr-name') === 'id') {
+      disableSaveButton = target.value === '';
+      this.setState({ disableSaveButton });
+    }
   }
 
   render() {
-    const {
-      onAddExerciseToDay,
-      onClickAddExerciseToLibrary,
-      onClickClose,
-      onSubmitExercise
-    } = this.props;
-    const { exerciseTemplates } = this.state;
+    const { onClickClose, exerciseTemplates, onSubmitExerciseToDay } = this.props;
+    const { disableSaveButton } = this.state;
 
-    const defaultSelectValue = exerciseTemplates[0].id || "";
-    const defaultName = exerciseTemplates[0].name || "";
-    const formId = "form-add-exercise";
+    const formId = "form-add-exercise-to-day";
 
     const buttons = [
       {
         formId,
-        cssClass: "btn-primary col",
         label: "Add Exercise To Day",
+        cssClass: "btn-primary",
         type: "submit",
-        disabled: false
+        disabled: disableSaveButton
       }
     ];
 
-    const dataAttributes = {
-      selectedTemplateId: defaultSelectValue,
-      name: defaultName,
-      repsPerSet: 0,
-      numberOfSets: 0,
-      duration: 0
+    let domOptions = [<option key={-1} value={""} label="Select An Exercise" />];
+
+    if (exerciseTemplates && exerciseTemplates.length > 0) {
+      const _exerciseTemplates = exerciseTemplates.map((exerciseTemplate) => {
+        const { name, id } = exerciseTemplate;
+
+        return (
+          <option
+            key={id}
+            value={id}
+            label={name}
+          />
+        );
+      });
+
+      domOptions = domOptions.concat(_exerciseTemplates);
+    }
+
+    const dataAttributeIds = {
+      id: 'select-exercise-id',
+      repsPerSet: 'input-reps-per-set',
+      numberOfSets: 'input-number-of-sets',
+      duration: 'input-duration'
     };
 
     return (
-      <div className="modal-add-exercise-to-day">
-        <ModalAddGenericItemToCollection
-          title="Add Exercise"
-          entityName="exercise"
-          formId="form-add-exercise"
-          onClickClose={onClickClose}
-          buttons={buttons}
-          dataAttributes={dataAttributes}
-          templates={exerciseTemplates}
-          onSubmit={onAddExerciseToDay}
+      <Modal
+        className="modal-add-exercise-to-day"
+        buttons={buttons}
+        title="Add Exercise To Day"
+        onClickClose={onClickClose}
+      >
+        <FormAddGenericItem
+          formId={formId}
+          dataAttributeIds={dataAttributeIds}
+          onSubmit={onSubmitExerciseToDay}
+          saveButtonVisible={false}
+          onChange={this.onChange}
         >
           <div className="form-group">
-            <label htmlFor="input-duration">Duration (minutes)</label>
+            <label htmlFor={dataAttributeIds.id}>Exercise Name</label>
+            <select
+              data-attr-name="id"
+              defaultValue=""
+              id={dataAttributeIds.id}
+              className="form-control text-capitalize"
+              required
+            >
+              {domOptions}
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor={dataAttributeIds.duration}>Duration (minutes)</label>
             <input
-              defaultValue={dataAttributes.duration}
+              defaultValue="0"
               data-attr-name="duration"
-              id="input-duration"
+              id={dataAttributeIds.duration}
               type="number"
               min="0"
               className="form-control"
@@ -69,11 +104,11 @@ class ModalAddExerciseToDay extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="input-number-per-set">Reps Per Set</label>
+            <label htmlFor={dataAttributeIds.repsPerSet}>Reps Per Set</label>
             <input
-              defaultValue={dataAttributes.repsPerSet}
+              defaultValue="0"
               data-attr-name="repsPerSet"
-              id="input-reps-per-set"
+              id={dataAttributeIds.repsPerSet}
               type="number"
               min="0"
               className="form-control"
@@ -81,19 +116,19 @@ class ModalAddExerciseToDay extends React.Component {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="input-number-of-sets">Number Of Sets</label>
+            <label htmlFor={dataAttributeIds.numberOfSets}>Number Of Sets</label>
             <input
-              defaultValue={dataAttributes.numberOfSets}
+              defaultValue="0"
               data-attr-name="numberOfSets"
-              id="input-number-of-sets"
+              id={dataAttributeIds.numberOfSets}
               type="number"
               min="0"
               className="form-control"
               required
             />
           </div>
-        </ModalAddGenericItemToCollection>
-      </div>
+        </FormAddGenericItem>
+      </Modal>
     );
   }
 }
