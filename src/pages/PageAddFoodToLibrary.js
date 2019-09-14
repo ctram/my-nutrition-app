@@ -95,7 +95,7 @@ class PageAddFoodToLibrary extends React.Component {
                   required
                 />
               </div>
-              <div className="f`orm-group">
+              <div className="form-group">
                 <label htmlFor={dataAttributeIds.protein}>Protein (g)</label>
                 <input
                   defaultValue="0"
