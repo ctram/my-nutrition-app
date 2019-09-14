@@ -1,5 +1,6 @@
 import React from "react";
 import moment from "moment";
+import capitalize from "capitalize";
 
 import { DATE_FORMAT } from "../constants/constants";
 
@@ -36,7 +37,9 @@ class App extends React.Component {
     this.goToPageAddFoodToLibrary = this.goToPageAddFoodToLibrary.bind(this);
     this.addFoodToMeal = this.addFoodToMeal.bind(this);
     this.addExerciseToDay = this.addExerciseToDay.bind(this);
-    this.addExerciseTemplateToLibrary = this.addExerciseTemplateToLibrary.bind(this);
+    this.addExerciseTemplateToLibrary = this.addExerciseTemplateToLibrary.bind(
+      this
+    );
     this.changeDate = this.changeDate.bind(this);
     this.removeItem = this.removeItem.bind(this);
   }
@@ -44,7 +47,7 @@ class App extends React.Component {
   componentDidMount() {
     // clear toastMessage when user navigates to new path.
     this.props.history.listen(() => {
-      this.setState({ toastMessage: '' });
+      this.setState({ toastMessage: "" });
     });
 
     // mimick a call to server for data.
@@ -87,9 +90,13 @@ class App extends React.Component {
 
     const foodTemplate = foodTemplates.find(foodTemplate => {
       return foodTemplate.id === food.id;
-    })
+    });
 
-    const newFood = { ...foodTemplate, numberServings: food.numberServings, id: Math.random() };
+    const newFood = {
+      ...foodTemplate,
+      numberServings: food.numberServings,
+      id: Math.random()
+    };
 
     let day = days[date];
 
@@ -111,9 +118,13 @@ class App extends React.Component {
 
     const exerciseTemplate = exerciseTemplates.find(exerciseTemplate => {
       return exerciseTemplate.id === exercise.id;
-    })
+    });
 
-    const newExercise = { ...exercise, name: exerciseTemplate.name, id: Math.random() };
+    const newExercise = {
+      ...exercise,
+      name: exerciseTemplate.name,
+      id: Math.random()
+    };
 
     let day = days[date];
 
@@ -131,11 +142,25 @@ class App extends React.Component {
   }
 
   addFoodTemplateToLibrary(food) {
-    const { fat, protein, carbs, calories, name, servingUnit, servingSize } = food;
+    const {
+      fat,
+      protein,
+      carbs,
+      calories,
+      name,
+      servingUnit,
+      servingSize
+    } = food;
     const nutrition = { fat, protein, carbs, calories };
 
     const { foodTemplates } = this.state;
-    const newFood = { name, id: Math.random(), servingUnit, servingSize, nutrition };
+    const newFood = {
+      name,
+      id: Math.random(),
+      servingUnit,
+      servingSize,
+      nutrition
+    };
     foodTemplates.push(newFood);
 
     this.props.history.push("/");
@@ -171,20 +196,28 @@ class App extends React.Component {
     const { name, id } = item;
     const { days, date } = this.state;
 
-    if (!window.confirm(`Are you sure you want to remove ${name}? This cannot be undone.`)) {
+    const itemTypeLabel = itemType === "exercise" ? "Exercises" : capitalize.words(itemType);
+
+    if (
+      !window.confirm(
+        `Are you sure you want to remove ${capitalize.words(
+          name
+        )} from ${itemTypeLabel}? This cannot be undone.`
+      )
+    ) {
       return;
     }
 
     const day = days[date];
 
-    let items = itemType === 'exercise' ? day.exercises : day.foods[itemType].items;
-
+    let items =
+      itemType === "exercise" ? day.exercises : day.foods[itemType].items;
 
     items = items.filter(item => {
       return item.id !== id;
     });
 
-    if (itemType === 'exercise') {
+    if (itemType === "exercise") {
       day.exercises = items;
     } else {
       day.foods[itemType].items = items;
@@ -192,7 +225,7 @@ class App extends React.Component {
 
     days[date] = day;
 
-    this.setState({ days })
+    this.setState({ days });
   }
 
   goToPageAddFoodToLibrary() {
@@ -206,7 +239,13 @@ class App extends React.Component {
   }
 
   render() {
-    const { foodTemplates, toastMessage, days, date, exerciseTemplates } = this.state;
+    const {
+      foodTemplates,
+      toastMessage,
+      days,
+      date,
+      exerciseTemplates
+    } = this.state;
 
     return (
       <div className="App">
@@ -221,13 +260,17 @@ class App extends React.Component {
             <Route
               path="/add-food-to-library"
               render={() => (
-                <PageAddFoodToLibrary onSubmitFoodTemplate={this.addFoodTemplateToLibrary} />
+                <PageAddFoodToLibrary
+                  onSubmitFoodTemplate={this.addFoodTemplateToLibrary}
+                />
               )}
             />
             <Route
               path="/add-exercise-to-library"
               render={() => (
-                <PageAddExerciseToLibrary onSubmitExerciseTemplate={this.addExerciseTemplateToLibrary} />
+                <PageAddExerciseToLibrary
+                  onSubmitExerciseTemplate={this.addExerciseTemplateToLibrary}
+                />
               )}
             />
             <Route
