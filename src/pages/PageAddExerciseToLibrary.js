@@ -24,7 +24,7 @@ function PageAddExerciseToLibrary(props) {
           dataAttributeIds={dataAttributeIds}
         >
           <div className="form-group">
-            <label htmlFor="input-name">Name</label>
+            <label htmlFor={dataAttributeIds.name}>Name</label>
             <input
               data-attr-name="name"
               id={dataAttributeIds.name}

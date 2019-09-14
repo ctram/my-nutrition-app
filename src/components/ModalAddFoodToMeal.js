@@ -39,7 +39,7 @@ function ModalAddFoodToMeal(props) {
       modalTitle="Add Food To Meal"
     >
       <div className="form-group">
-        <label htmlFor="select-food">Food Name</label>
+        <label htmlFor={dataAttributeIds.id}>Food Name</label>
         <select
           data-attr-name="id"
           defaultValue=""
@@ -52,7 +52,7 @@ function ModalAddFoodToMeal(props) {
       </div>
 
       <div className="form-group">
-        <label htmlFor="input-number-servings">Number of Servings</label>
+        <label htmlFor={dataAttributeIds.numberServings}>Number of Servings</label>
         <input
           data-attr-name="numberServings"
           defaultValue="1"
