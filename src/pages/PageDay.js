@@ -35,8 +35,8 @@ class PageDay extends React.Component {
     this.showModalAddFoodToMeal = this.showModalAddFoodToMeal.bind(this);
     this.showModalAddExerciseToDay = this.showModalAddExerciseToDay.bind(this);
 
-    this.onAddFoodToMeal = this.onAddFoodToMeal.bind(this);
-    this.onAddExerciseToDay = this.onAddExerciseToDay.bind(this);
+    this.handleAddFoodToMeal = this.handleAddFoodToMeal.bind(this);
+    this.handleAddExerciseToDay = this.handleAddExerciseToDay.bind(this);
   }
 
   componentDidMount() {
@@ -98,7 +98,7 @@ class PageDay extends React.Component {
     this.showModal(null);
   }
 
-  onAddFoodToMeal(food) {
+  handleAddFoodToMeal(food) {
     const { mealTypeToAddItemTo } = this.state;
 
     this.props.onAddFoodToMeal(food, mealTypeToAddItemTo).then(() => {
@@ -106,7 +106,7 @@ class PageDay extends React.Component {
     });
   }
 
-  onAddExerciseToDay(exercise) {
+  handleAddExerciseToDay(exercise) {
     this.props.onAddExerciseToDay(exercise).then(() => {
       this.showModal(null);
     });
@@ -131,14 +131,14 @@ class PageDay extends React.Component {
     const modalAddFoodToMeal = (
       <ModalAddFoodToMeal
         onClickClose={this.closeModal}
-        onSubmitFoodToMeal={this.onAddFoodToMeal}
+        onSubmitFoodToMeal={this.handleAddFoodToMeal}
         foodTemplates={foodTemplates}
       />
     );
 
     const modalAddExerciseToDay = (
       <ModalAddExerciseToDay
-        onSubmitExerciseToDay={this.onAddExerciseToDay}
+        onSubmitExerciseToDay={this.handleAddExerciseToDay}
         onClickClose={this.closeModal}
         exerciseTemplates={exerciseTemplates}
       />
