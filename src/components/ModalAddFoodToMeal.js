@@ -18,8 +18,8 @@ class ModalAddFoodToMeal extends React.Component {
     const target = e.target;
     let { disableSaveButton } = this.state;
 
-    if (target.getAttribute('data-attr-name') === 'id') {
-      disableSaveButton = target.value === '';
+    if (target.getAttribute("data-attr-name") === "id") {
+      disableSaveButton = target.value === "";
       this.setState({ disableSaveButton });
     }
   }
@@ -27,8 +27,6 @@ class ModalAddFoodToMeal extends React.Component {
   render() {
     const { onClickClose, foodTemplates, onSubmitFoodToMeal } = this.props;
     const { disableSaveButton } = this.state;
-
-
 
     const formId = "form-add-food-to-meal";
 
@@ -61,8 +59,8 @@ class ModalAddFoodToMeal extends React.Component {
     }
 
     const dataAttributeIds = {
-      id: 'select-food-id',
-      numberServings: 'input-number-servings'
+      id: "select-food-id",
+      numberServings: "input-number-servings"
     };
 
     return (
